@@ -5,7 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "kxviel", email = "kevin.dgoveas@gmail.com" }]
 requires-python = ">=3.11.16"
-dependencies = []
+dependencies = [
+    "ijson>=3.5.1",
+    "pandas>=3.0.6",
+    "pymatgen>=2026.9.24",
+    "pyyaml>=6.0.3",
+    "spglib>=2.7.0",
+]
 
 [project.scripts]
 aflow = "aflow:main"

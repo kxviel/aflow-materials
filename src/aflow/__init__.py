@@ -8,21 +8,13 @@ from .aflow import main as aflow
 
 __all__ = ["main"]
 
-PROJECT_ROOT = Path.cwd().parent
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
 
 
 def main() -> None:
 
-    # if len(sys.argv) != 2 or sys.argv[1].lower() not in ("agp", "ggmp"):
-    #     print("Invalid arguments!")
-    #     print("Usage: uv run gai-cal ggmp | uv run gai-cal agp")
-    #     return
+    input_path: Path = DATA_DIR / "aflow_100.json"
+    output_path: Path = DATA_DIR / "aflow_100_normalized.json"
 
-    # DATASET = Literal["AGP", "GGMP"]
-    # dataset: DATASET = "AGP" if sys.argv[1].lower() == "agp" else "GGMP"
-
-    # meta_path = PROJECT_ROOT / "datasets/processed" / dataset / "meta.tsv"
-    # otu_path = PROJECT_ROOT / "datasets/processed" / dataset / "otu.tsv"
-    # output_path = PROJECT_ROOT / "result" / dataset
-
-    aflow()
+    aflow(input_path, output_path)
