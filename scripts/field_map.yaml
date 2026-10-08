@@ -1,0 +1,318 @@
+# field_map.yaml
+# ══════════════════════════════════════════════════════════════════════════════
+# Field mapping configuration for normalize_reported_values.py
+#
+# PURPOSE
+# -------
+# Each database uses different column names for the same physical quantity.
+# This file tells the normalizer which column in YOUR CSV corresponds to each
+# canonical field name the script understands.
+#
+# HOW IT WORKS
+# ------------
+# 1. Add a block under `databases:` with the exact string you pass to --db-name
+# 2. For each canonical field below, set the value to the matching column header
+#    in your CSV (case-sensitive, must match exactly).
+# 3. Set a field to null if the database does not provide it — it will be left
+#    blank in the output rather than raising an error.
+# 4. Any canonical field you omit entirely falls back to fuzzy auto-detection
+#    against your CSV headers. You only need to specify fields where the fuzzy
+#    match would be wrong or ambiguous.
+#
+# CANONICAL FIELDS (keys)
+# -----------------------
+#   material_id       Unique ID for the material / structure record
+#   spacegroup        Space group — any notation (ITA number, HM, Hall, Schoenflies, verbal)
+#   crystal_system    Crystal system string (e.g. "cubic", "monoclinic")
+#   bravais_lattice   Bravais lattice / Pearson symbol (e.g. "cF", "cubic F")
+#   point_group       Point group — Schoenflies or HM notation
+#   formula           Chemical formula string (any order; Hill normalization applied)
+#   composition       Composition string or JSON (alternative to formula)
+#   dimensionality    Dimensionality label (e.g. "3D", "2D", "bulk", "monolayer")
+#   material_form     Material morphology (e.g. "thin film", "single crystal")
+#   layer_group       Layer group — number (1–80) or symbol
+#   wyckoff           Wyckoff positions (e.g. "4a 8c", "4a,8c")
+#   lattice_a         Lattice parameter a (Angstroms)
+#   lattice_b         Lattice parameter b (Angstroms)
+#   lattice_c         Lattice parameter c (Angstroms)
+#   lattice_alpha     Angle alpha (degrees)
+#   lattice_beta      Angle beta  (degrees)
+#   lattice_gamma     Angle gamma (degrees)
+#   lattice_volume    Unit cell volume (Å³)
+#   pbc               Periodic boundary conditions (JSON array [bool,bool,bool])
+#   lattice_matrix    3×3 lattice matrix as JSON array (optional; built from a,b,c,α,β,γ if absent)
+#   nsites            Number of sites / atoms in the unit cell
+#   site_species      Site species JSON (used for geometry derivation)
+#
+# ══════════════════════════════════════════════════════════════════════════════
+
+databases:
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Materials Project (MP)
+  # Typical MP API / MPRester CSV exports
+  # ────────────────────────────────────────────────────────────────────────────
+  materials_project:
+    material_id:      "material_id"
+    spacegroup:       "spacegroup.number"       # MP nests this; use "spacegroup" for flat exports
+    crystal_system:   "symmetry.crystal_system"
+    bravais_lattice:  null                      # not directly exported; derived from SG
+    point_group:      "symmetry.point_group"
+    formula:          "pretty_formula"
+    composition:      null
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          "wyckoff"
+    lattice_a:        "structure.lattice.a"
+    lattice_b:        "structure.lattice.b"
+    lattice_c:        "structure.lattice.c"
+    lattice_alpha:    "structure.lattice.alpha"
+    lattice_beta:     "structure.lattice.beta"
+    lattice_gamma:    "structure.lattice.gamma"
+    lattice_volume:   "structure.lattice.volume"
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "nsites"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # ICSD (Inorganic Crystal Structure Database)
+  # Typical flat CSV export from ICSD web interface
+  # ────────────────────────────────────────────────────────────────────────────
+  icsd:
+    material_id:      "CollectionCode"
+    spacegroup:       "StructuredFormula"       # ICSD sometimes puts SG in "SpaceGroupSymbol"
+    crystal_system:   "CrystalClass"
+    bravais_lattice:  "BravaisType"
+    point_group:      "PointGroupHM"
+    formula:          "StructuredFormula"
+    composition:      null
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          "WyckoffSequence"
+    lattice_a:        "a"
+    lattice_b:        "b"
+    lattice_c:        "c"
+    lattice_alpha:    "alpha"
+    lattice_beta:     "beta"
+    lattice_gamma:    "gamma"
+    lattice_volume:   "CellVolume"
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "NumberOfAtoms"
+    site_species:     null
+
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # OQMD (Open Quantum Materials Database)
+  # ────────────────────────────────────────────────────────────────────────────
+  oqmd:
+    material_id:      "entry_id"
+    spacegroup:       "spacegroup"
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      null
+    formula:          "name"
+    composition:      "composition"
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          null
+    lattice_a:        "a"
+    lattice_b:        "b"
+    lattice_c:        "c"
+    lattice_alpha:    "alpha"
+    lattice_beta:     "beta"
+    lattice_gamma:    "gamma"
+    lattice_volume:   "volume"
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "natoms"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # JARVIS-DFT
+  # ────────────────────────────────────────────────────────────────────────────
+  jarvis:
+    material_id:      "jid"
+    spacegroup:       "spg_number"
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      "pointgroup"
+    formula:          "formula"
+    composition:      null
+    dimensionality:   "dimensionality"
+    material_form:    null
+    layer_group:      null
+    wyckoff:          null
+    lattice_a:        null
+    lattice_b:        null
+    lattice_c:        null
+    lattice_alpha:    null
+    lattice_beta:     null
+    lattice_gamma:    null
+    lattice_volume:   null
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "natoms"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # C2DB (Computational 2D Materials Database)
+  # ────────────────────────────────────────────────────────────────────────────
+  c2db:
+    material_id:      "uid"
+    spacegroup:       "spacegroup"
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      "pointgroup"
+    formula:          "formula"
+    composition:      null
+    dimensionality:   "dimensionality"
+    material_form:    null
+    layer_group:      "layergroup_number"
+    wyckoff:          null
+    lattice_a:        "a"
+    lattice_b:        "b"
+    lattice_c:        "c"
+    lattice_alpha:    "alpha"
+    lattice_beta:     "beta"
+    lattice_gamma:    "gamma"
+    lattice_volume:   null
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "natoms"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # COD (Crystallography Open Database)
+  # ────────────────────────────────────────────────────────────────────────────
+  cod:
+    material_id:      "file"
+    spacegroup:       "sg"                      # sometimes "sg_symbol" or "sg_number"
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      null
+    formula:          "formula"
+    composition:      null
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          null
+    lattice_a:        "a"
+    lattice_b:        "b"
+    lattice_c:        "c"
+    lattice_alpha:    "alpha"
+    lattice_beta:     "beta"
+    lattice_gamma:    "gamma"
+    lattice_volume:   "vol"
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "Z"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Alexandria / Alexandria-3D
+  # ────────────────────────────────────────────────────────────────────────────
+  alexandria:
+    material_id:      "id"
+    spacegroup:       "spacegroup_number"
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      null
+    formula:          "formula"
+    composition:      null
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          null
+    lattice_a:        "a"
+    lattice_b:        "b"
+    lattice_c:        "c"
+    lattice_alpha:    "alpha"
+    lattice_beta:     "beta"
+    lattice_gamma:    "gamma"
+    lattice_volume:   "volume"
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           "nsites"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Phase-1 extractor output (normalize_structure_phase1_mp_compatible.py)
+  # Use this when feeding Phase-1 CSV directly into this script
+  # ────────────────────────────────────────────────────────────────────────────
+  phase1:
+    material_id:      "structure_uid"
+    spacegroup:       "spacegroup_number_reported"
+    crystal_system:   "crystal_system_reported"
+    bravais_lattice:  null
+    point_group:      "point_group_reported"
+    formula:          "formula_reported"
+    composition:      "composition_reported_json"
+    dimensionality:   "dimensionality_reported"
+    material_form:    null
+    layer_group:      "layer_group_number_reported"
+    wyckoff:          null
+    lattice_a:        null
+    lattice_b:        null
+    lattice_c:        null
+    lattice_alpha:    null
+    lattice_beta:     null
+    lattice_gamma:    null
+    lattice_volume:   null
+    pbc:              "pbc_json"
+    lattice_matrix:   "lattice_matrix_json"
+    nsites:           "site_count"
+    site_species:     null
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # GENERIC / TEMPLATE
+  # Copy this block and rename it for a new database.
+  # Set any unknown field to null — it will be skipped gracefully.
+  # Fields left out entirely fall back to fuzzy auto-detection.
+  # ────────────────────────────────────────────────────────────────────────────
+  my_new_database:
+    material_id:      "id"
+    spacegroup:       null
+    crystal_system:   null
+    bravais_lattice:  null
+    point_group:      null
+    formula:          null
+    composition:      null
+    dimensionality:   null
+    material_form:    null
+    layer_group:      null
+    wyckoff:          null
+    lattice_a:        null
+    lattice_b:        null
+    lattice_c:        null
+    lattice_alpha:    null
+    lattice_beta:     null
+    lattice_gamma:    null
+    lattice_volume:   null
+    pbc:              null
+    lattice_matrix:   null
+    nsites:           null
+    site_species:     null
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SPACE GROUP NOTATION REFERENCE
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# The script auto-detects any of these notations from the spacegroup field:
+#
+#   ita_number    Pure integer 1–230            e.g.  227
+#   hm_short      Hermann-Mauguin short         e.g.  Fd-3m  |  F d -3 m  |  Fd3m
+#   hm_full       HM with origin/setting choice e.g.  Fd-3m:2  |  R-3m:R
+#   hall          Hall symbol                   e.g.  -F 4vw 2vw 3
+#   schoenflies   Schoenflies + superscript      e.g.  Oh^10  |  D2h^28
+#   verbal        Crystal system text            e.g.  cubic  |  monoclinic P
+#
+# All are resolved to an ITA integer in normalized_spacegroup_ita.
+# If resolution fails: normalized_spacegroup_ita = '' and a warning is written.
+#
+# ══════════════════════════════════════════════════════════════════════════════
