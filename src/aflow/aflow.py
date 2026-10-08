@@ -31,10 +31,9 @@ def load_aflow(input_path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def normalize_aflow(records: list[dict]) -> list[dict]:
-    config = PROJECT_ROOT / "field_map_aflow.yaml"
+def normalize_aflow(records: list[dict], config_path: Path) -> list[dict]:
 
-    mapping = load_config(config, "aflow")
+    mapping = load_config(config_path, "aflow")
     headers = list({key for record in records for key in record})
     mapping = fuzzy_map(headers, mapping)
 
@@ -68,11 +67,11 @@ def normalize_aflow(records: list[dict]) -> list[dict]:
     return results
 
 
-def main(input_path: Path, output_path: Path):
+def main(input_path: Path, output_path: Path, config_path: Path):
     print("Hello from aflow db")
 
     records = load_aflow(input_path)
-    results = normalize_aflow(records)
+    results = normalize_aflow(records, config_path)
 
     with output_path.open("w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)

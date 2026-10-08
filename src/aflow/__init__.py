@@ -16,5 +16,6 @@ def main() -> None:
 
     input_path: Path = DATA_DIR / "aflow_100.json"
     output_path: Path = DATA_DIR / "aflow_100_normalized.json"
+    config_path: Path = PROJECT_ROOT / "field_map.yaml"
 
-    aflow(input_path, output_path)
+    aflow(input_path, output_path, config_path)
