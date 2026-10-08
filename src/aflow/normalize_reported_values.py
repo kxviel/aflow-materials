@@ -400,14 +400,19 @@ def _build_sg_reference():
                 info = spglib.get_spacegroup_type(hn)
             except Exception:
                 continue
-            ita = int(info.get("number", 0))
+
+            if info is None:
+                continue
+
+            ita = int(info.number)
             if not (1 <= ita <= 230):
                 continue
-            hm_short = (info.get("international_short") or "").strip()
-            hm_full = (info.get("international_full") or "").strip()
-            hall_sym = (info.get("hall_symbol") or "").strip()
-            schoen = (info.get("schoenflies") or "").strip()
-            choice = (info.get("choice") or "").strip()
+
+            hm_short = info.international_short.strip()
+            hm_full = info.international_full.strip()
+            hall_sym = info.hall_symbol.strip()
+            schoen = info.schoenflies.strip()
+            choice = info.choice.strip()
 
             # Store first occurrence per ITA (primary setting)
             if ita not in seen_ita:
