@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 normalize_reported_values.py
 ============================
@@ -27,7 +26,7 @@ FIELDS COVERED
     Formula          : Hill order, reduced, anonymous, chemical system
     Dimensionality   : 0 / 1 / 2 / 3 / unknown
     Material form    : bulk, monolayer, slab, …
-    Layer group      : ITA-layer 1–80
+    Layer group      : ITA-layer 1-80
     Wyckoff positions: multiplicity, letter, site symmetry (spglib lookup)
 
 USAGE

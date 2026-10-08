@@ -1,3 +1,14 @@
+# Goal:
+Prepare AFLOW materials data for integration into our database.
+
+# Description:
+Review AFLOW’s structure and available properties, collect and normalize its records, validate data quality, and present database statistics and the processing workflow in a short slide deck.
+
+
+curl -fL --retry 3 \
+  'https://aflow.org/API/aflux/?auid,aurl,compound,species,composition,spacegroup_relax,crystal_system,Pearson_symbol_relax,Bravais_lattice_relax,point_group_Hermann_Mauguin,point_group_Schoenflies,Wyckoff_letters,Wyckoff_multiplicities,Wyckoff_site_symmetries,geometry,volume_cell,natoms,positions_fractional,paging(1,500)' \
+  -o aflow_500.json
+
 # normalize_reported_values.py
 
 General-purpose materials science value normalization pipeline.

@@ -267,6 +267,33 @@ databases:
     site_species: null
 
   # ────────────────────────────────────────────────────────────────────────────
+  # AFlow
+  # ────────────────────────────────────────────────────────────────────────────
+  aflow:
+    material_id: "auid"
+    spacegroup: "spacegroup_relax"
+    crystal_system: "crystal_system"
+    bravais_lattice: "Pearson_symbol_relax"
+    point_group: "point_group_Hermann_Mauguin"
+    formula: "compound"
+    composition: null
+    dimensionality: null
+    material_form: null
+    layer_group: null
+    wyckoff: null
+    lattice_a: "lattice_a"
+    lattice_b: "lattice_b"
+    lattice_c: "lattice_c"
+    lattice_alpha: "lattice_alpha"
+    lattice_beta: "lattice_beta"
+    lattice_gamma: "lattice_gamma"
+    lattice_volume: "volume_cell"
+    pbc: null
+    lattice_matrix: null
+    nsites: "natoms"
+    site_species: null
+
+  # ────────────────────────────────────────────────────────────────────────────
   # GENERIC / TEMPLATE
   # Copy this block and rename it for a new database.
   # Set any unknown field to null — it will be skipped gracefully.

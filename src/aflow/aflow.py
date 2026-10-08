@@ -4,12 +4,29 @@ from typing import Any
 
 from aflow.normalize_reported_values import (
     _build_sg_reference,
-    fuzzy_map,
     load_config,
     normalize_row,
 )
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+def prepare_aflow_record(record: dict[str, Any]) -> dict[str, Any]:
+    prepared = record.copy()
+
+    geometry = record.get("geometry")
+
+    if isinstance(geometry, list) and len(geometry) == 6:
+        fields = [
+            "lattice_a",
+            "lattice_b",
+            "lattice_c",
+            "lattice_alpha",
+            "lattice_beta",
+            "lattice_gamma",
+        ]
+
+        prepared.update(zip(fields, geometry))
+
+    return prepared
 
 
 def load_aflow(input_path: Path) -> list[dict[str, Any]]:
@@ -23,7 +40,7 @@ def load_aflow(input_path: Path) -> list[dict[str, Any]]:
     else:
         raise TypeError("Unsupported AFLOW JSON format")
 
-    records: list[dict[str, Any]] = [r for r in raw_records if isinstance(r, dict)]
+    records = [record for record in raw_records if isinstance(record, dict)]
 
     if not records:
         raise ValueError("No material records found")
@@ -31,19 +48,22 @@ def load_aflow(input_path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def normalize_aflow(records: list[dict], config_path: Path) -> list[dict]:
+def normalize_aflow(
+    records: list[dict[str, Any]],
+    config_path: Path,
+) -> list[dict[str, Any]]:
 
     mapping = load_config(config_path, "aflow")
-    headers = list({key for record in records for key in record})
-    mapping = fuzzy_map(headers, mapping)
 
     _build_sg_reference()
 
     results = []
 
     for index, record in enumerate(records, start=1):
+        prepared = prepare_aflow_record(record)
+
         normalized, issues = normalize_row(
-            row=record,
+            row=prepared,
             mapping=mapping,
             row_id=index,
             db_name="aflow",
@@ -67,11 +87,16 @@ def normalize_aflow(records: list[dict], config_path: Path) -> list[dict]:
     return results
 
 
-def main(input_path: Path, output_path: Path, config_path: Path):
-    print("Hello from aflow db")
+def main(
+    input_path: Path,
+    output_path: Path,
+    config_path: Path,
+) -> None:
 
     records = load_aflow(input_path)
     results = normalize_aflow(records, config_path)
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     with output_path.open("w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
@@ -79,4 +104,5 @@ def main(input_path: Path, output_path: Path, config_path: Path):
     print(f"Loaded {len(records)} AFLOW records")
     print(f"Normalized {len(results)} records")
     print(f"Saved to: {output_path}")
+
     print(json.dumps(results[0]["normalized"], indent=2))
