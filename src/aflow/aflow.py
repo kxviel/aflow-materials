@@ -9,9 +9,10 @@ from aflow.normalize_reported_values import (
 )
 
 
-def prepare_aflow_record(record: dict[str, Any]) -> dict[str, Any]:
+def prepare_aflow_record(record: dict) -> dict:
     prepared = record.copy()
 
+    # Extract lattice parameters
     geometry = record.get("geometry")
 
     if isinstance(geometry, list) and len(geometry) == 6:
@@ -23,8 +24,28 @@ def prepare_aflow_record(record: dict[str, Any]) -> dict[str, Any]:
             "lattice_beta",
             "lattice_gamma",
         ]
-
         prepared.update(zip(fields, geometry))
+
+    # Extract Wyckoff positions
+    letters = record.get("Wyckoff_letters")
+    mults = record.get("Wyckoff_multiplicities")
+
+    if (
+        isinstance(letters, list)
+        and isinstance(mults, list)
+        and len(letters) == len(mults)
+        and all(
+            isinstance(lg, list) and isinstance(mg, list) and len(lg) == len(mg)
+            for lg, mg in zip(letters, mults)
+        )
+    ):
+        positions = [
+            f"{mult}{letter}"
+            for lg, mg in zip(letters, mults)
+            for letter, mult in zip(lg, mg)
+        ]
+        if positions:
+            prepared["wyckoff"] = " ".join(positions)
 
     return prepared
 

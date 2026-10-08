@@ -280,7 +280,7 @@ databases:
     dimensionality: null
     material_form: null
     layer_group: null
-    wyckoff: null
+    wyckoff: "wyckoff"
     lattice_a: "lattice_a"
     lattice_b: "lattice_b"
     lattice_c: "lattice_c"
