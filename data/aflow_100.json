@@ -1,0 +1,702 @@
+{
+  "1 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:075dbbb922a0e4d7",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_GGA:11Apr2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "2 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:09380077ea262d8f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_LDA:12Apr2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "3 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:0c60e09656b9e78e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_PBE:06Sep2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "4 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:49d7aeb61659bc7d",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac:PAW_GGA:11Apr2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "5 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:4a044c196b4b15ce",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac:PAW_PBE_KIN:06Sep2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "6 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:4be5317ee35c8dce",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ac1_ICSD_43491",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "7 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:58aff4dc11fb19fa",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE_KIN:06Sep2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "8 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:5afdc34a65be65c4",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE_KIN:SCAN:06Sep2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "9 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:6196002050e22929",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA:12Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "10 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:7c40207f9f41880e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE_KIN:06Sep2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "11 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:7d3a942b9b455915",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE:06Sep2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "12 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:7dd39301db71bad2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_GGA:11Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "13 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:8196d1a193798409",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac_s:PAW_GGA:11Apr2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "14 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:84ac38ad725b0312",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac:PAW_LDA:12Apr2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "15 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:a4c9f018459b104f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA_KIN:12Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "16 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:a611850bbb184a3d",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_GGA:11Apr2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "17 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:aa16b2d5ba70d36f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_LDA:12Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "18 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:b10fdf32165c1364",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac_s:PAW_LDA:12Apr2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "19 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:cb881061187b9371",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA_KIN:12Apr2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "20 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:d143f72f2ec5754c",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE:06Sep2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "21 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:df4f827388c65966",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_PBE:06Sep2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "22 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:e52df253f519b90c",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ac_s:PAW_PBE_KIN:06Sep2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "23 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:fcdae6b1b616b1d2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA:12Apr2000/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "24 of 2981853": {
+    "compound": "Ac1",
+    "auid": "aflow:febab1e925926c8b",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_GGA:11Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "25 of 2981853": {
+    "compound": "Ac1H2",
+    "auid": "aflow:903e65521a6472cd",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ac1H2_ICSD_56392",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF12"
+  },
+  "26 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:039c26df2ec23887",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE:06Sep2000/A5",
+    "spacegroup_relax": 141,
+    "Pearson_symbol_relax": "tI4"
+  },
+  "27 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:2053dd75c7ccfd32",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_PBE:06Sep2000/A5",
+    "spacegroup_relax": 141,
+    "Pearson_symbol_relax": "tI4"
+  },
+  "28 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:2d1afb427524bead",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE_KIN:SCAN:06Sep2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "29 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:32a53e4a7072c12f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE_KIN:06Sep2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "30 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:36f4c69435ece9c1",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE:06Sep2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "31 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:42bfad7edf09f6a7",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_GGA:11Apr2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "32 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:4fe25b04f66c6295",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_GGA:11Apr2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "33 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:77617ad5d6c16cac",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_PBE:06Sep2000/A4",
+    "spacegroup_relax": 227,
+    "Pearson_symbol_relax": "cF8"
+  },
+  "34 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:843bc9afbb478282",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA:12Apr2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "35 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:93f3c4cbbed897c3",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_PBE:06Sep2000/A4",
+    "spacegroup_relax": 227,
+    "Pearson_symbol_relax": "cF8"
+  },
+  "36 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:bbcb5ac3aca0feeb",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac:PAW_LDA_KIN:12Apr2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "37 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:cace77ac9c71ef90",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_LDA:12Apr2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "38 of 2981853": {
+    "compound": "Ac2",
+    "auid": "aflow:d2afc10b4e1169e5",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ac_s:PAW_PBE:06Sep2000/A3",
+    "spacegroup_relax": 194,
+    "Pearson_symbol_relax": "hP2"
+  },
+  "39 of 2981853": {
+    "compound": "Ac2Br6",
+    "auid": "aflow:fc70fda6652015cb",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/HEX/Ac1Br3_ICSD_31578",
+    "spacegroup_relax": 176,
+    "Pearson_symbol_relax": "hP8"
+  },
+  "40 of 2981853": {
+    "compound": "Ac2Cl6",
+    "auid": "aflow:f005069e0112345e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/HEX/Ac1Cl3_ICSD_31569",
+    "spacegroup_relax": 176,
+    "Pearson_symbol_relax": "hP8"
+  },
+  "41 of 2981853": {
+    "compound": "Ac2O3",
+    "auid": "aflow:0e74a562cc0ddf71",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/HEX/Ac2O3_ICSD_31750",
+    "spacegroup_relax": 164,
+    "Pearson_symbol_relax": "hP5"
+  },
+  "42 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:011c7d7ae9167fca",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgY_sv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "43 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:011a8786d7c6ed38",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCa_sv/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "44 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:027bb615be9aa00a",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgNa_sv/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "45 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:02bb9ea63bb98b25",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgW_pv/303",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "46 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:036d3425b69c6eae",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCu_pv/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "47 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0486dfcca1eab8d7",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgGa_h/A7.A",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "48 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:053b403b95284dbf",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ag1_ICSD_53762",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "49 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:062ac8d7d1f49a6f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ag1_ICSD_180878",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "50 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:07d034236d8e5496",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag:PAW_LDA:17Apr2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "51 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:08574c1dd8673d68",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgAl/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "52 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:08aa24be8373bad1",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgMn_pv/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "53 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:085c27efe85822bf",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgSe/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "54 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:08ae1f6d9d4d4fcd",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgAu/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "55 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:09c5ea3507748ec2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgPb_d/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "56 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0998f2c4156c614b",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCo/303",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "57 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:092a392084505e9f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgIn_d/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "58 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:09a0b604c0f5b6e2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCd/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "59 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0a8772175af836d6",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgGe_h/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "60 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0abf8217e8b66115",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB0_WEB/Ag:PAW_LDA:17Apr2000/0",
+    "spacegroup_relax": null,
+    "Pearson_symbol_relax": null
+  },
+  "61 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0b5cc6c2a8309fd2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag_pv:PAW_PBE_KIN:09Dec2005/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "62 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0c93e0e305a4bd44",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgSi/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "63 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0dc34a89f82bfff1",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCd/303",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "64 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0e29520550556060",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgV_sv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "65 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0e30e7e4a5b42f09",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag_pv:PAW_PBE_KIN:09Dec2005/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "66 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0e2682a5facb3e41",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgRh_pv/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "67 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0e9b29edb90149a2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgOs_pv/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "68 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0e64a1246ff796be",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ag1_ICSD_604630",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "69 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:0f23ed4eb4e7eb62",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgZn/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "70 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:10cf831e925a10ba",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCo/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "71 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:10e6df101c66d1ae",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgNb_sv/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "72 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:11876c29d0dff1df",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgAl/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "73 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:123582825e2df102",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgTc_pv/303",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "74 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:124b02f29bab530e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgP/303",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "75 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:13d0ace67c1b2127",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgW_pv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "76 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1340a457be786627",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgBe_sv/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "77 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:14c64ff406bfa664",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgNa_sv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "78 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:16574b6ad9a85672",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgPb_d/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "79 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:16614e28eb484061",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgOs_pv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "80 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:165a495cf38c88c4",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgC/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "81 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:18376e44e110beac",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgHg/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "82 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:18c86af7506ecf6e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag:PAW_PBE:06Sep2000/A2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "83 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:18a13bbf8ea12249",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag:PAW_PBE:06Sep2000/A2:LDAU2",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "84 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1868efea2c6a9f39",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgMg_pv/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "85 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1937597a13d1981e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgAl/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "86 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:19326d4748b4184f",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ag1_ICSD_604632",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "87 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:193a41bb13fb9e90",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgSb/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "88 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:19ae22b8322daebf",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgPt/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "89 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1a1a3d2032e9f971",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/ICSD_WEB/FCC/Ag1_ICSD_180879",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "90 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1b9e0de3be47427d",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCa_sv/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "91 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1b8ae94d3b95db8e",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgBr/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "92 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1e9619c0af875d63",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB1_WEB/Ag_sv_GW:PAW_LDA_KIN:05Dec2013/A1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "93 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1e39b24cfc7bcc82",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgSr_sv/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "94 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:1ef1bd82107eeda2",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCd/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "95 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:201bf815652b1c53",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgMn_pv/f1",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  },
+  "96 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:210f9ad626554e22",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgGa_h/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "97 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:22170a90b9e134ff",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgNi_pv/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "98 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:22fe82eb18212271",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgCo/59",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "99 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:221f602ef08e5820",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgTl_d/b1",
+    "spacegroup_relax": 229,
+    "Pearson_symbol_relax": "cI2"
+  },
+  "100 of 2981853": {
+    "compound": "Ag1",
+    "auid": "aflow:23e748389b40220a",
+    "aurl": "aflowlib.duke.edu:AFLOWDATA/LIB2_WEB/AgPt/2",
+    "spacegroup_relax": 225,
+    "Pearson_symbol_relax": "cF4"
+  }
+}

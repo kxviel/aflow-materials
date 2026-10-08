@@ -19,10 +19,10 @@ README.md                      This file
 
 Every field in the output CSV is prefixed with one of three labels:
 
-| Prefix | Meaning |
-|---|---|
-| `raw_*` | Verbatim value from the source CSV — **never modified** |
-| `derived_*` | Computed from crystal geometry using pymatgen / spglib |
+| Prefix         | Meaning                                                              |
+| -------------- | -------------------------------------------------------------------- |
+| `raw_*`        | Verbatim value from the source CSV — **never modified**              |
+| `derived_*`    | Computed from crystal geometry using pymatgen / spglib               |
 | `normalized_*` | Rules-only normalization of the reported string (no geometry needed) |
 
 Plus consistency flags (`formula_consistency`, `spacegroup_reported_vs_derived`, …) that cross-check the tiers.
@@ -31,17 +31,17 @@ Plus consistency flags (`formula_consistency`, `spacegroup_reported_vs_derived`,
 
 ## Fields covered
 
-| Domain | What is normalized |
-|---|---|
-| **Space group** | Auto-detects ITA number, HM short/full, Hall, Schoenflies, verbal — resolves all to ITA integer + all other notations |
-| **Crystal system** | 7 canonical names (triclinic … cubic) plus ≈30 aliases per system |
-| **Bravais lattice** | 14 Pearson symbols (aP, mS, oF, cF, …) plus common aliases (fcc, bcc, rhombohedral, …) |
-| **Point group** | Schoenflies canonical + HM international; handles Oh^10, D2h, m-3m, mmm, … |
-| **Formula** | Hill order, reduced, anonymous, composition JSON, chemical system, element count |
-| **Dimensionality** | 0 / 1 / 2 / 3 / unknown from keyword rules |
-| **Material form** | bulk, monolayer, bilayer, slab, nanowire, thin_film, … |
-| **Layer group** | ITA-layer number 1–80 with validation; -1 → `not_assigned` |
-| **Wyckoff positions** | Parse any format → multiplicity + letter + site symmetry via spglib/pymatgen lookup |
+| Domain                | What is normalized                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Space group**       | Auto-detects ITA number, HM short/full, Hall, Schoenflies, verbal — resolves all to ITA integer + all other notations |
+| **Crystal system**    | 7 canonical names (triclinic … cubic) plus ≈30 aliases per system                                                     |
+| **Bravais lattice**   | 14 Pearson symbols (aP, mS, oF, cF, …) plus common aliases (fcc, bcc, rhombohedral, …)                                |
+| **Point group**       | Schoenflies canonical + HM international; handles Oh^10, D2h, m-3m, mmm, …                                            |
+| **Formula**           | Hill order, reduced, anonymous, composition JSON, chemical system, element count                                      |
+| **Dimensionality**    | 0 / 1 / 2 / 3 / unknown from keyword rules                                                                            |
+| **Material form**     | bulk, monolayer, bilayer, slab, nanowire, thin_film, …                                                                |
+| **Layer group**       | ITA-layer number 1–80 with validation; -1 → `not_assigned`                                                            |
+| **Wyckoff positions** | Parse any format → multiplicity + letter + site symmetry via spglib/pymatgen lookup                                   |
 
 ---
 
@@ -90,30 +90,30 @@ python normalize_reported_values.py \
 
 ## CLI reference
 
-| Argument | Required | Default | Description |
-|---|---|---|---|
-| `--input` | Yes | — | Input CSV or `.csv.gz` |
-| `--db-name` | Yes | — | Key matching a block in `field_map.yaml` |
-| `--config` | No | None | Path to `field_map.yaml` |
-| `--output-dir` | Yes | — | Directory for all output files |
-| `--phase1-sites` | No | None | `structure_sites.csv` for Wyckoff/geometry derivation |
-| `--no-geometry` | No | off | Skip geometry derivation (faster; no pymatgen needed) |
-| `--workers` | No | 1 | Parallel worker processes |
-| `--batch-size` | No | 32 | Rows per worker batch |
-| `--log-every` | No | 5000 | Log progress every N rows |
-| `--max-rows` | No | 0 (all) | Stop after N rows (for testing) |
-| `--log-level` | No | INFO | DEBUG / INFO / WARNING / ERROR |
+| Argument         | Required | Default | Description                                           |
+| ---------------- | -------- | ------- | ----------------------------------------------------- |
+| `--input`        | Yes      | —       | Input CSV or `.csv.gz`                                |
+| `--db-name`      | Yes      | —       | Key matching a block in `field_map.yaml`              |
+| `--config`       | No       | None    | Path to `field_map.yaml`                              |
+| `--output-dir`   | Yes      | —       | Directory for all output files                        |
+| `--phase1-sites` | No       | None    | `structure_sites.csv` for Wyckoff/geometry derivation |
+| `--no-geometry`  | No       | off     | Skip geometry derivation (faster; no pymatgen needed) |
+| `--workers`      | No       | 1       | Parallel worker processes                             |
+| `--batch-size`   | No       | 32      | Rows per worker batch                                 |
+| `--log-every`    | No       | 5000    | Log progress every N rows                             |
+| `--max-rows`     | No       | 0 (all) | Stop after N rows (for testing)                       |
+| `--log-level`    | No       | INFO    | DEBUG / INFO / WARNING / ERROR                        |
 
 ---
 
 ## Output files
 
-| File | Description |
-|---|---|
-| `normalized_output.csv` | One row per input row; all `raw_`, `derived_`, `normalized_` columns |
-| `normalization_issues.csv` | One row per warning/error with `issue_code`, `severity`, `raw_value`, `message` |
-| `normalization_issue_summary.csv` | Issue code counts (for quick QC) |
-| `run_manifest.json` | Full audit trail: versions, field mapping, policy, elapsed time |
+| File                              | Description                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| `normalized_output.csv`           | One row per input row; all `raw_`, `derived_`, `normalized_` columns            |
+| `normalization_issues.csv`        | One row per warning/error with `issue_code`, `severity`, `raw_value`, `message` |
+| `normalization_issue_summary.csv` | Issue code counts (for quick QC)                                                |
+| `run_manifest.json`               | Full audit trail: versions, field mapping, policy, elapsed time                 |
 
 ---
 
@@ -132,15 +132,15 @@ The config maps your CSV's actual column names to the canonical field names the 
 ```yaml
 databases:
   my_lab_database:
-    material_id:    "sample_id"
-    spacegroup:     "SG_symbol"
-    formula:        "chemical_formula"
-    lattice_a:      "a_Ang"
-    lattice_b:      "b_Ang"
-    lattice_c:      "c_Ang"
-    lattice_alpha:  "alpha_deg"
-    lattice_beta:   "beta_deg"
-    lattice_gamma:  "gamma_deg"
+    material_id: "sample_id"
+    spacegroup: "SG_symbol"
+    formula: "chemical_formula"
+    lattice_a: "a_Ang"
+    lattice_b: "b_Ang"
+    lattice_c: "c_Ang"
+    lattice_alpha: "alpha_deg"
+    lattice_beta: "beta_deg"
+    lattice_gamma: "gamma_deg"
     # everything else null or omitted → fuzzy auto-detection
 ```
 
@@ -149,6 +149,7 @@ Fields you omit entirely fall back to **fuzzy auto-detection**: the script check
 ### Pre-configured databases
 
 The config ships with mappings for:
+
 - `materials_project` — MP API / MPRester flat CSV
 - `icsd` — ICSD web export
 - `aflow` — AFLOW REST API
@@ -165,15 +166,15 @@ The config ships with mappings for:
 
 The script detects notation type in this priority order:
 
-| Priority | Notation | Example | Detection rule |
-|---|---|---|---|
-| 1 | `ita_number` | `227` | Pure integer 1–230 |
-| 2 | `schoenflies` | `Oh^10`, `D2h^28` | Regex: class letter + superscript number |
-| 3 | `hm_full` | `Fd-3m:2`, `R-3m:R` | Contains `:` + setting choice marker |
-| 4 | `hall` | `-F 4vw 2vw 3` | Starts with lattice letter + space + screw/glide tokens |
-| 5 | `hm_short` | `Fd-3m`, `F d -3 m`, `Fd3m` | Lattice letter + HM body |
-| 6 | `verbal` | `cubic`, `monoclinic P` | Matches crystal system alias list |
-| 7 | `unknown` | anything else | Warning issued; `normalized_spacegroup_ita = ''` |
+| Priority | Notation      | Example                     | Detection rule                                          |
+| -------- | ------------- | --------------------------- | ------------------------------------------------------- |
+| 1        | `ita_number`  | `227`                       | Pure integer 1–230                                      |
+| 2        | `schoenflies` | `Oh^10`, `D2h^28`           | Regex: class letter + superscript number                |
+| 3        | `hm_full`     | `Fd-3m:2`, `R-3m:R`         | Contains `:` + setting choice marker                    |
+| 4        | `hall`        | `-F 4vw 2vw 3`              | Starts with lattice letter + space + screw/glide tokens |
+| 5        | `hm_short`    | `Fd-3m`, `F d -3 m`, `Fd3m` | Lattice letter + HM body                                |
+| 6        | `verbal`      | `cubic`, `monoclinic P`     | Matches crystal system alias list                       |
+| 7        | `unknown`     | anything else               | Warning issued; `normalized_spacegroup_ita = ''`        |
 
 All resolved notations are written as additional columns:
 `normalized_spacegroup_hm_short`, `normalized_spacegroup_hm_full`, `normalized_spacegroup_hall`, `normalized_spacegroup_schoenflies`.
@@ -184,22 +185,22 @@ All resolved notations are written as additional columns:
 
 **Input formats handled:**
 
-| Format | Example |
-|---|---|
-| Space-separated | `4a 8c 16d` |
-| Comma-separated | `4a,8c,16d` |
-| Semicolon-separated | `4a;8c;16d` |
-| Bracket-wrapped | `[4a, 8c]` |
-| Reversed (letter first) | `a4,c8` |
+| Format                  | Example     |
+| ----------------------- | ----------- |
+| Space-separated         | `4a 8c 16d` |
+| Comma-separated         | `4a,8c,16d` |
+| Semicolon-separated     | `4a;8c;16d` |
+| Bracket-wrapped         | `[4a, 8c]`  |
+| Reversed (letter first) | `a4,c8`     |
 
 **Output columns:**
 
-| Column | Example |
-|---|---|
-| `normalized_wyckoff_labels` | `4a 8c 16d` |
-| `normalized_wyckoff_multiplicities` | `4 8 16` |
-| `normalized_wyckoff_site_symmetries` | `-43m 3m. .3m` |
-| `normalized_wyckoff_status` | `ok` / `partial` / `lookup_failed` / `no_spacegroup_for_lookup` |
+| Column                               | Example                                                         |
+| ------------------------------------ | --------------------------------------------------------------- |
+| `normalized_wyckoff_labels`          | `4a 8c 16d`                                                     |
+| `normalized_wyckoff_multiplicities`  | `4 8 16`                                                        |
+| `normalized_wyckoff_site_symmetries` | `-43m 3m. .3m`                                                  |
+| `normalized_wyckoff_status`          | `ok` / `partial` / `lookup_failed` / `no_spacegroup_for_lookup` |
 
 Wyckoff lookup requires a resolved space group ITA number (from either `normalized_spacegroup_ita` or `derived_spacegroup_ita`). If neither is available, labels and multiplicities are carried through from the parsed raw string.
 
@@ -207,30 +208,30 @@ Wyckoff lookup requires a resolved space group ITA number (from either `normaliz
 
 ## Consistency flags
 
-| Column | Values | Meaning |
-|---|---|---|
-| `formula_consistency` | `consistent` / `mismatch` / `reported_only` / `derived_only` / `not_available` | Reported reduced formula vs. geometry-derived reduced formula |
-| `spacegroup_reported_vs_derived` | `consistent` / `conflict` / `reported_only` / `derived_only` / `not_available` | Normalized ITA number vs. derived ITA number |
-| `crystal_system_reported_vs_derived` | same | Normalized crystal system vs. derived crystal system |
-| `symmetry_tolerance_sensitive` | `yes` / `no` / `` | Whether SG differs between symprec=0.1 Å and symprec=0.01 Å |
+| Column                               | Values                                                                         | Meaning                                                       |
+| ------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| `formula_consistency`                | `consistent` / `mismatch` / `reported_only` / `derived_only` / `not_available` | Reported reduced formula vs. geometry-derived reduced formula |
+| `spacegroup_reported_vs_derived`     | `consistent` / `conflict` / `reported_only` / `derived_only` / `not_available` | Normalized ITA number vs. derived ITA number                  |
+| `crystal_system_reported_vs_derived` | same                                                                           | Normalized crystal system vs. derived crystal system          |
+| `symmetry_tolerance_sensitive`       | `yes` / `no` / ``                                                              | Whether SG differs between symprec=0.1 Å and symprec=0.01 Å   |
 
 ---
 
 ## Issue codes
 
-| Code | Severity | Meaning |
-|---|---|---|
-| `SPACEGROUP_RESOLUTION_FAILED` | warning | Could not map reported SG to ITA number |
-| `CRYSTAL_SYSTEM_UNRECOGNIZED` | warning | Crystal system string not in alias table |
-| `BRAVAIS_UNRECOGNIZED` | warning | Bravais lattice string not recognized |
-| `POINT_GROUP_UNRECOGNIZED` | warning | Point group not recognized |
-| `FORMULA_PARSE_FAILED` | warning | pymatgen could not parse the formula string |
-| `LAYER_GROUP_OUT_OF_RANGE` | warning | Layer group number outside 1–80 |
-| `LAYER_GROUP_PARSE_FAILED` | warning | Could not extract a number from layer group field |
-| `WYCKOFF_PARTIAL_LOOKUP` | warning | Some Wyckoff letters not found in SG table |
-| `WYCKOFF_LOOKUP_FAILED` | warning | spglib/pymatgen Wyckoff lookup raised exception |
-| `REPORTED_DERIVED_SG_MISMATCH` | warning | Normalized ITA ≠ derived ITA |
-| `ROW_NORMALIZATION_CRASHED` | error | Unhandled exception during row processing |
+| Code                           | Severity | Meaning                                           |
+| ------------------------------ | -------- | ------------------------------------------------- |
+| `SPACEGROUP_RESOLUTION_FAILED` | warning  | Could not map reported SG to ITA number           |
+| `CRYSTAL_SYSTEM_UNRECOGNIZED`  | warning  | Crystal system string not in alias table          |
+| `BRAVAIS_UNRECOGNIZED`         | warning  | Bravais lattice string not recognized             |
+| `POINT_GROUP_UNRECOGNIZED`     | warning  | Point group not recognized                        |
+| `FORMULA_PARSE_FAILED`         | warning  | pymatgen could not parse the formula string       |
+| `LAYER_GROUP_OUT_OF_RANGE`     | warning  | Layer group number outside 1–80                   |
+| `LAYER_GROUP_PARSE_FAILED`     | warning  | Could not extract a number from layer group field |
+| `WYCKOFF_PARTIAL_LOOKUP`       | warning  | Some Wyckoff letters not found in SG table        |
+| `WYCKOFF_LOOKUP_FAILED`        | warning  | spglib/pymatgen Wyckoff lookup raised exception   |
+| `REPORTED_DERIVED_SG_MISMATCH` | warning  | Normalized ITA ≠ derived ITA                      |
+| `ROW_NORMALIZATION_CRASHED`    | error    | Unhandled exception during row processing         |
 
 ---
 
@@ -268,9 +269,9 @@ Copy the `my_new_database` template in `field_map.yaml` and fill in column names
 
 ## Relationship to normalize_structure_phase1_mp_compatible.py
 
-| Script | Role |
-|---|---|
-| `normalize_structure_phase1_mp_compatible.py` | Reads Phase-1 geometry files, derives MP-compatible symmetry and standard cells, writes geometry-centric output |
-| `normalize_reported_values.py` (this script) | Reads any flat CSV from any database, normalizes **reported** field values, optionally derives symmetry, writes a comparison-ready wide CSV |
+| Script                                        | Role                                                                                                                                        |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `normalize_structure_phase1_mp_compatible.py` | Reads Phase-1 geometry files, derives MP-compatible symmetry and standard cells, writes geometry-centric output                             |
+| `normalize_reported_values.py` (this script)  | Reads any flat CSV from any database, normalizes **reported** field values, optionally derives symmetry, writes a comparison-ready wide CSV |
 
 The two scripts are complementary. Use `phase1` as the `--db-name` to feed Phase-1 output directly into this script and add a normalized-reported-value tier on top of what Phase-1 already derived.

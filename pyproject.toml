@@ -3,10 +3,8 @@ name = "aflow"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "kxviel", email = "kevin.dgoveas@gmail.com" }
-]
-requires-python = ">=3.11"
+authors = [{ name = "kxviel", email = "kevin.dgoveas@gmail.com" }]
+requires-python = ">=3.11.16"
 dependencies = []
 
 [project.scripts]
