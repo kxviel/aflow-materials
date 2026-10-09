@@ -144,8 +144,7 @@ def merge_aflow_record(
         return raw.get(raw_key or mapping.get(field, field))
 
     geometry = [
-        select_value(f"lattice_{name}", float)
-        for name in constants.LATTICE_PARAMETERS
+        select_value(f"lattice_{name}", float) for name in constants.LATTICE_PARAMETERS
     ]
     if None in geometry:
         geometry = raw.get(mapping["geometry"])
@@ -163,7 +162,6 @@ def merge_aflow_record(
             "formula_anonymous": select_value("formula_anonymous"),
             "chemical_system": select_value("chemical_system"),
             "nelements": select_value("nelements", int),
-
             # Symmetry
             mapping["spacegroup"]: select_value(
                 "spacegroup_ita", int, raw_key=mapping["spacegroup"]
@@ -174,9 +172,7 @@ def merge_aflow_record(
             mapping["point_group"]: select_value(
                 "point_group_hm", raw_key=mapping["point_group"]
             ),
-            mapping["point_group_schoenflies"]: select_value(
-                "point_group_schoenflies"
-            ),
+            mapping["point_group_schoenflies"]: select_value("point_group_schoenflies"),
             "spacegroup_hm_short": select_value("spacegroup_hm_short"),
             "spacegroup_hm_full": select_value("spacegroup_hm_full"),
             "spacegroup_hall": select_value("spacegroup_hall"),
@@ -188,7 +184,6 @@ def merge_aflow_record(
                 "conventional_spacegroup_ita", int
             ),
             "conventional_hm_short": select_value("conventional_hm_short"),
-
             # Geometry and dimensionality
             mapping["geometry"]: geometry,
             mapping["lattice_volume"]: select_value("lattice_volume", float),
