@@ -52,12 +52,18 @@ import logging
 import math
 import platform
 import re
+import sys
 import time
 from collections import Counter
 from collections.abc import Sequence
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from pathlib import Path
 from typing import Any
+
+if not __package__:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from aflow import constants, derive
 
 # ── optional yaml ──────────────────────────────────────────────────────────────
 try:
@@ -70,305 +76,6 @@ except ImportError:
 LOG = logging.getLogger("normalizer")
 SCRIPT_VERSION = "1.0.0"
 POLICY_VERSION = "general-materials-normalization-v1"
-
-# ══════════════════════════════════════════════════════════════════════════════
-# CONSTANTS & REFERENCE TABLES
-# ══════════════════════════════════════════════════════════════════════════════
-
-NULLS = {"", "na", "n/a", "nan", "none", "null", "_", "-", "--", "?", "unknown"}
-
-# ── Crystal systems ────────────────────────────────────────────────────────────
-CRYSTAL_SYSTEM_MAP: dict[str, str] = {}
-_CS_ALIASES = {
-    "triclinic": ["triclinic", "anorthic", "tri", "tric", "triklin"],
-    "monoclinic": ["monoclinic", "mono", "mon", "monoklin"],
-    "orthorhombic": ["orthorhombic", "ortho", "orth", "rhombic", "orthorhomb"],
-    "tetragonal": ["tetragonal", "tet", "tetr", "tetragonal"],
-    "trigonal": ["trigonal", "trig", "rhombohedral", "rhombo", "rh"],
-    "hexagonal": ["hexagonal", "hex", "hexag"],
-    "cubic": ["cubic", "cube", "cub", "isometric", "iso"],
-}
-for _canon, _aliases in _CS_ALIASES.items():
-    for _a in _aliases:
-        CRYSTAL_SYSTEM_MAP[_a.lower()] = _canon
-
-# ITA-number → crystal system
-_SG_TO_CS: dict[int, str] = {}
-for _sg in range(1, 3):
-    _SG_TO_CS[_sg] = "triclinic"
-for _sg in range(3, 16):
-    _SG_TO_CS[_sg] = "monoclinic"
-for _sg in range(16, 75):
-    _SG_TO_CS[_sg] = "orthorhombic"
-for _sg in range(75, 143):
-    _SG_TO_CS[_sg] = "tetragonal"
-for _sg in range(143, 168):
-    _SG_TO_CS[_sg] = "trigonal"
-for _sg in range(168, 195):
-    _SG_TO_CS[_sg] = "hexagonal"
-for _sg in range(195, 231):
-    _SG_TO_CS[_sg] = "cubic"
-
-# ── Bravais lattice ────────────────────────────────────────────────────────────
-# Pearson symbol → canonical
-BRAVAIS_CANONICAL = {
-    "aP",
-    "mP",
-    "mS",
-    "mC",
-    "oP",
-    "oS",
-    "oC",
-    "oF",
-    "oI",
-    "tP",
-    "tI",
-    "hP",
-    "hR",
-    "cP",
-    "cF",
-    "cI",
-}
-_BRAVAIS_ALIASES: dict[str, str] = {}
-_BL_ALIAS_MAP = {
-    "aP": ["aP", "triclinic P", "triclinic primitive"],
-    "mP": ["mP", "monoclinic P", "monoclinic primitive"],
-    "mS": ["mS", "mC", "monoclinic C", "monoclinic base-centered", "monoclinic S"],
-    "oP": ["oP", "orthorhombic P", "orthorhombic primitive"],
-    "oS": [
-        "oS",
-        "oC",
-        "orthorhombic C",
-        "orthorhombic base-centered",
-        "orthorhombic S",
-    ],
-    "oF": ["oF", "orthorhombic F", "orthorhombic face-centered"],
-    "oI": ["oI", "orthorhombic I", "orthorhombic body-centered"],
-    "tP": ["tP", "tetragonal P", "tetragonal primitive"],
-    "tI": ["tI", "tetragonal I", "tetragonal body-centered"],
-    "hP": ["hP", "hexagonal P", "hexagonal primitive", "trigonal P"],
-    "hR": ["hR", "rhombohedral", "trigonal R", "hexagonal R"],
-    "cP": ["cP", "cubic P", "cubic primitive", "simple cubic"],
-    "cF": ["cF", "cubic F", "cubic face-centered", "fcc", "face-centered cubic"],
-    "cI": ["cI", "cubic I", "cubic body-centered", "bcc", "body-centered cubic"],
-}
-for _canon, _aliases in _BL_ALIAS_MAP.items():
-    for _a in _aliases:
-        _BRAVAIS_ALIASES[_a.lower()] = _canon
-
-# ── Point group ────────────────────────────────────────────────────────────────
-# Schoenflies → (schoenflies_canonical, hm_canonical)
-POINT_GROUP_TABLE: dict[str, tuple[str, str]] = {
-    "c1": ("C1", "1"),
-    "ci": ("Ci", "-1"),
-    "s2": ("Ci", "-1"),
-    "c2": ("C2", "2"),
-    "cs": ("Cs", "m"),
-    "c1h": ("Cs", "m"),
-    "c2h": ("C2h", "2/m"),
-    "d2": ("D2", "222"),
-    "v": ("D2", "222"),
-    "c2v": ("C2v", "mm2"),
-    "d2h": ("D2h", "mmm"),
-    "vh": ("D2h", "mmm"),
-    "c4": ("C4", "4"),
-    "s4": ("S4", "-4"),
-    "c4h": ("C4h", "4/m"),
-    "d4": ("D4", "422"),
-    "c4v": ("C4v", "4mm"),
-    "d2d": ("D2d", "-42m"),
-    "vd": ("D2d", "-42m"),
-    "d4h": ("D4h", "4/mmm"),
-    "c3": ("C3", "3"),
-    "s6": ("S6", "-3"),
-    "c3i": ("S6", "-3"),
-    "d3": ("D3", "32"),
-    "c3v": ("C3v", "3m"),
-    "d3d": ("D3d", "-3m"),
-    "c6": ("C6", "6"),
-    "c3h": ("C3h", "-6"),
-    "c6h": ("C6h", "6/m"),
-    "d6": ("D6", "622"),
-    "c6v": ("C6v", "6mm"),
-    "d3h": ("D3h", "-6m2"),
-    "d6h": ("D6h", "6/mmm"),
-    "t": ("T", "23"),
-    "th": ("Th", "m-3"),
-    "o": ("O", "432"),
-    "td": ("Td", "-43m"),
-    "oh": ("Oh", "m-3m"),
-}
-# HM → schoenflies (reverse map)
-_HM_TO_PG: dict[str, str] = {v[1]: v[0] for v in POINT_GROUP_TABLE.values()}
-
-# ── Schoenflies regex for space groups (Oh^10 style) ──────────────────────────
-_RE_SCHOENFLIES_SG = re.compile(
-    r"^([CTDSOIAB][a-z0-9]*[vh]?[di]?)\^?_?(\d{1,3})$", re.IGNORECASE
-)
-# ── Hermann-Mauguin short patterns ────────────────────────────────────────────
-_RE_HM_SHORT = re.compile(
-    r"^[ABCFIPRHST][\s\-]*[\d/mabcnuved\s\-]{1,30}$", re.IGNORECASE
-)
-# ── Hall symbol pattern ───────────────────────────────────────────────────────
-_RE_HALL = re.compile(r"^-?[ABCFIPRHST]\s+[\d\w\s\-\'\"]+$")
-
-# ── Dimensionality keywords ────────────────────────────────────────────────────
-_DIM_RULES = [
-    (r"\b2d[\s\-]*bulk\b", "3"),
-    (r"\b3d\b", "3"),
-    (r"\b2d\b", "2"),
-    (r"\b1d\b", "1"),
-    (r"\b0d\b", "0"),
-    (r"\bmonolayer\b|singlelayer|single[\s-]layer", "2"),
-    (r"\bbilayer\b", "2"),
-    (r"\bfew[\s-]layer\b", "2"),
-    (r"\bmultilayer\b", "2"),
-    (r"\bslab\b", "2"),
-    (r"\bsurface\b", "2"),
-    (r"\bnanowire\b", "1"),
-    (r"\bnanorod\b", "1"),
-    (r"\bnanotube\b", "1"),
-    (r"\bcluster\b", "0"),
-    (r"\bmolecule\b", "0"),
-    (r"\bbulk\b", "3"),
-]
-
-# ── Material form keywords ─────────────────────────────────────────────────────
-_FORM_RULES = [
-    ("polycrystalline", "polycrystalline"),
-    ("single crystal", "single_crystal"),
-    ("thin film", "thin_film"),
-    ("nanocomposite", "nanocomposite"),
-    ("composite", "composite"),
-    ("nanowire", "nanowire"),
-    ("nanorod", "nanorod"),
-    ("nanotube", "nanotube"),
-    ("nanostructure", "nanostructure"),
-    ("ceramic", "ceramic"),
-    ("heterostructure", "heterostructure"),
-    ("bilayer", "bilayer"),
-    ("monolayer", "monolayer"),
-    ("singlelayer", "monolayer"),
-    ("single layer", "monolayer"),
-    ("few-layer", "few_layer"),
-    ("few layer", "few_layer"),
-    ("multilayer", "multilayer"),
-    ("slab", "slab"),
-    ("surface", "surface"),
-    ("bulk", "bulk"),
-    ("bulk_parent_2d", "bulk_parent_2d"),
-    ("defect", "defect_structure"),
-]
-
-# ── Canonical output fields ────────────────────────────────────────────────────
-CANONICAL_FIELDS = [
-    # identity
-    "source_row_id",
-    "source_database",
-    "source_material_id",
-    # ── raw (verbatim from input) ──
-    "raw_spacegroup",
-    "raw_crystal_system",
-    "raw_bravais_lattice",
-    "raw_point_group",
-    "raw_formula",
-    "raw_composition",
-    "raw_dimensionality",
-    "raw_material_form",
-    "raw_layer_group",
-    "raw_wyckoff",
-    "raw_lattice_a",
-    "raw_lattice_b",
-    "raw_lattice_c",
-    "raw_lattice_alpha",
-    "raw_lattice_beta",
-    "raw_lattice_gamma",
-    "raw_lattice_volume",
-    "raw_pbc",
-    "raw_lattice_matrix",
-    "raw_nsites",
-    "raw_site_species",
-    # ── derived (computed from geometry) ──
-    "derived_formula",
-    "derived_reduced_formula",
-    "derived_formula_hill",
-    "derived_formula_anonymous",
-    "derived_composition_json",
-    "derived_chemical_system",
-    "derived_nelements",
-    "derived_nsites",
-    "derived_spacegroup_ita",
-    "derived_spacegroup_hm_short",
-    "derived_spacegroup_hm_full",
-    "derived_spacegroup_hall",
-    "derived_spacegroup_schoenflies",
-    "derived_crystal_system",
-    "derived_point_group_schoenflies",
-    "derived_point_group_hm",
-    "derived_bravais_lattice",
-    "derived_wyckoff_labels",
-    "derived_wyckoff_multiplicities",
-    "derived_wyckoff_site_symmetries",
-    "derived_primitive_spacegroup_ita",
-    "derived_primitive_hm_short",
-    "derived_conventional_spacegroup_ita",
-    "derived_conventional_hm_short",
-    "qc_spacegroup_ita_0p01",
-    "qc_hm_short_0p01",
-    "derived_symmetry_stable",
-    "derived_lattice_a",
-    "derived_lattice_b",
-    "derived_lattice_c",
-    "derived_lattice_alpha",
-    "derived_lattice_beta",
-    "derived_lattice_gamma",
-    "derived_lattice_volume",
-    "derived_status",
-    "derived_error",
-    # ── normalized (rules-only from reported text) ──
-    "normalized_spacegroup_ita",
-    "normalized_spacegroup_notation_detected",
-    "normalized_spacegroup_hm_short",  # resolved from reported
-    "normalized_spacegroup_hm_full",
-    "normalized_spacegroup_hall",
-    "normalized_spacegroup_schoenflies",
-    "normalized_crystal_system",
-    "normalized_bravais_lattice",
-    "normalized_point_group_schoenflies",
-    "normalized_point_group_hm",
-    "normalized_formula_hill",
-    "normalized_formula_reduced",
-    "normalized_formula_anonymous",
-    "normalized_composition_json",
-    "normalized_chemical_system",
-    "normalized_nelements",
-    "normalized_dimensionality",
-    "normalized_material_form",
-    "normalized_layer_group_ita",
-    "normalized_layer_group_status",
-    "normalized_wyckoff_labels",
-    "normalized_wyckoff_multiplicities",
-    "normalized_wyckoff_site_symmetries",
-    "normalized_wyckoff_status",
-    # ── consistency flags ──
-    "formula_consistency",
-    "spacegroup_reported_vs_derived",
-    "crystal_system_reported_vs_derived",
-    "symmetry_tolerance_sensitive",
-    "normalization_status",
-    "normalization_policy_version",
-]
-
-ISSUE_FIELDS = [
-    "source_row_id",
-    "source_database",
-    "source_material_id",
-    "field",
-    "severity",
-    "issue_code",
-    "raw_value",
-    "message",
-]
 
 # ══════════════════════════════════════════════════════════════════════════════
 # REFERENCE TABLE  — built once from spglib at startup
@@ -422,7 +129,7 @@ def _build_sg_reference():
                     "hall_symbol": hall_sym,
                     "schoenflies": schoen,
                     "choice": choice,
-                    "crystal_system": _SG_TO_CS.get(ita, ""),
+                    "crystal_system": constants.SPACEGROUP_CRYSTAL_SYSTEM.get(ita, ""),
                 }
 
             # Reverse lookups (all settings / choices)
@@ -464,6 +171,9 @@ def _normalise_hm_key(hm: str) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 # BASIC HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
+
+
+NULLS = {"", "na", "n/a", "nan", "none", "null", "_", "-", "--", "?", "unknown"}
 
 
 def is_null(v) -> bool:
@@ -554,6 +264,7 @@ _FUZZY_ALIASES: dict[str, list[str]] = {
         "lattice_centering",
         "centering",
     ],
+    "pearson_symbol": ["pearson_symbol", "pearson"],
     "point_group": [
         "point_group",
         "point group",
@@ -705,9 +416,33 @@ def get_field(row: dict, mapping: dict[str, str], canon: str) -> str:
     return ""
 
 
+def get_array_field(row: dict, mapping: dict[str, str], canon: str) -> list | None:
+    """Accept JSON arrays from CSV and native arrays from JSON records."""
+    value = row.get(mapping.get(canon, ""))
+    if is_null(value):
+        return None
+    if isinstance(value, str):
+        value = json.loads(value)
+    if not isinstance(value, list):
+        raise ValueError(f"{canon} must be an array")
+    return value
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # SPACE GROUP AUTO-DETECTION & NORMALIZATION
 # ══════════════════════════════════════════════════════════════════════════════
+
+
+# ── Schoenflies regex for space groups (Oh^10 style) ──────────────────────────
+_RE_SCHOENFLIES_SG = re.compile(
+    r"^([CTDSOIAB][a-z0-9]*[vh]?[di]?)\^?_?(\d{1,3})$", re.IGNORECASE
+)
+# ── Hermann-Mauguin short patterns ────────────────────────────────────────────
+_RE_HM_SHORT = re.compile(
+    r"^[ABCFIPRHST][\s\-]*[\d/mabcnuved\s\-]{1,30}$", re.IGNORECASE
+)
+# ── Hall symbol pattern ───────────────────────────────────────────────────────
+_RE_HALL = re.compile(r"^-?[ABCFIPRHST]\s+[\d\w\s\-\'\"]+$")
 
 
 def detect_spacegroup_notation(raw: str) -> str:
@@ -750,7 +485,7 @@ def detect_spacegroup_notation(raw: str) -> str:
 
     # 6. Verbal / free text crystal system names
     low = s.lower().replace("-", " ").replace("_", " ")
-    for alias in CRYSTAL_SYSTEM_MAP:
+    for alias in constants.CRYSTAL_SYSTEM_MAP:
         if low == alias or low.startswith(alias + " ") or low.endswith(" " + alias):
             return "verbal"
 
@@ -832,9 +567,9 @@ def resolve_spacegroup_to_ita(
     # ── Verbal — can only resolve crystal system, not ITA ───────────────────
     if notation == "verbal":
         low = s.lower().replace("-", " ").replace("_", " ")
-        cs = CRYSTAL_SYSTEM_MAP.get(low.strip(), "")
+        cs = constants.CRYSTAL_SYSTEM_MAP.get(low.strip(), "")
         if not cs:
-            for alias, canon in CRYSTAL_SYSTEM_MAP.items():
+            for alias, canon in constants.CRYSTAL_SYSTEM_MAP.items():
                 if alias in low:
                     cs = canon
                     break
@@ -853,9 +588,9 @@ def normalize_crystal_system(raw: str) -> str:
     if is_null(raw):
         return ""
     low = raw.strip().lower().replace("-", " ").replace("_", " ")
-    if low in CRYSTAL_SYSTEM_MAP:
-        return CRYSTAL_SYSTEM_MAP[low]
-    for alias, canon in CRYSTAL_SYSTEM_MAP.items():
+    if low in constants.CRYSTAL_SYSTEM_MAP:
+        return constants.CRYSTAL_SYSTEM_MAP[low]
+    for alias, canon in constants.CRYSTAL_SYSTEM_MAP.items():
         if alias in low:
             return canon
     return ""
@@ -871,17 +606,29 @@ def normalize_bravais(raw: str) -> str:
         return ""
     s = raw.strip()
     # Direct Pearson symbol match (case-sensitive)
-    if s in BRAVAIS_CANONICAL:
+    if s in constants.BRAVAIS_CANONICAL:
         return s
     # Alias lookup (case-insensitive)
     key = s.lower()
-    if key in _BRAVAIS_ALIASES:
-        return _BRAVAIS_ALIASES[key]
+    if key in constants.BRAVAIS_ALIASES:
+        return constants.BRAVAIS_ALIASES[key]
     # Fuzzy: try to find a substring alias
-    for alias, canon in _BRAVAIS_ALIASES.items():
+    for alias, canon in constants.BRAVAIS_ALIASES.items():
         if alias in key:
             return canon
     return ""
+
+
+def normalize_pearson(raw: str) -> tuple[str, int | None]:
+    match = re.fullmatch(
+        r"([amothc])\s*([PCIFRABS])\s*([1-9]\d*)", raw.strip(), re.IGNORECASE
+    )
+    if match:
+        prefix = match[1].lower() + match[2].upper()
+        if normalize_bravais(prefix):
+            count = int(match[3])
+            return f"{prefix}{count}", count
+    return "", None
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -900,17 +647,17 @@ def normalize_point_group(raw: str) -> tuple[str, str]:
 
     # Try Schoenflies lookup
     key = s_clean.lower().replace(" ", "").replace("-", "").replace("_", "")
-    if key in POINT_GROUP_TABLE:
-        return POINT_GROUP_TABLE[key]
+    if key in constants.POINT_GROUP_TABLE:
+        return constants.POINT_GROUP_TABLE[key]
 
     # Try HM → Schoenflies lookup
     hm_key = s_clean.replace(" ", "").replace("−", "-")
-    if hm_key in _HM_TO_PG:
-        schoen = _HM_TO_PG[hm_key]
-        return POINT_GROUP_TABLE.get(schoen.lower(), (schoen, hm_key))
+    if hm_key in constants.HM_TO_SCHOENFLIES:
+        schoen = constants.HM_TO_SCHOENFLIES[hm_key]
+        return constants.POINT_GROUP_TABLE.get(schoen.lower(), (schoen, hm_key))
 
     # Fallback: try partial match
-    for k, v in POINT_GROUP_TABLE.items():
+    for k, v in constants.POINT_GROUP_TABLE.items():
         if k in key or key in k:
             return v
 
@@ -965,17 +712,68 @@ def normalize_formula(raw: str):
 # ══════════════════════════════════════════════════════════════════════════════
 
 
+# ── Dimensionality keywords ────────────────────────────────────────────────────
+_DIM_RULES = [
+    (r"\b2d[\s\-]*bulk\b", "3"),
+    (r"\b3d\b", "3"),
+    (r"\b2d\b", "2"),
+    (r"\b1d\b", "1"),
+    (r"\b0d\b", "0"),
+    (r"\bmonolayer\b|singlelayer|single[\s-]layer", "2"),
+    (r"\bbilayer\b", "2"),
+    (r"\bfew[\s-]layer\b", "2"),
+    (r"\bmultilayer\b", "2"),
+    (r"\bslab\b", "2"),
+    (r"\bsurface\b", "2"),
+    (r"\bnanowire\b", "1"),
+    (r"\bnanorod\b", "1"),
+    (r"\bnanotube\b", "1"),
+    (r"\bcluster\b", "0"),
+    (r"\bmolecule\b", "0"),
+    (r"\bbulk\b", "3"),
+]
+
+# ── Material form keywords ─────────────────────────────────────────────────────
+_FORM_RULES = [
+    ("polycrystalline", "polycrystalline"),
+    ("single crystal", "single_crystal"),
+    ("thin film", "thin_film"),
+    ("nanocomposite", "nanocomposite"),
+    ("composite", "composite"),
+    ("nanowire", "nanowire"),
+    ("nanorod", "nanorod"),
+    ("nanotube", "nanotube"),
+    ("nanostructure", "nanostructure"),
+    ("ceramic", "ceramic"),
+    ("heterostructure", "heterostructure"),
+    ("bilayer", "bilayer"),
+    ("monolayer", "monolayer"),
+    ("singlelayer", "monolayer"),
+    ("single layer", "monolayer"),
+    ("few-layer", "few_layer"),
+    ("few layer", "few_layer"),
+    ("multilayer", "multilayer"),
+    ("slab", "slab"),
+    ("surface", "surface"),
+    ("bulk", "bulk"),
+    ("bulk_parent_2d", "bulk_parent_2d"),
+    ("defect", "defect_structure"),
+]
+
+
 def normalize_dimensionality(raw: str, layer_count_raw: str = "") -> tuple[str, str]:
     """Returns (dimensionality: '0'/'1'/'2'/'3'/'unknown', material_form)."""
     if is_null(raw):
         dim = "unknown"
     else:
         low = raw.strip().lower().replace("_", " ")
-        dim = "unknown"
-        for pattern, d in _DIM_RULES:
-            if re.search(pattern, low):
-                dim = d
-                break
+        number = safe_int(raw)
+        dim = str(number) if number in (0, 1, 2, 3) else "unknown"
+        if dim == "unknown":
+            for pattern, d in _DIM_RULES:
+                if re.search(pattern, low):
+                    dim = d
+                    break
 
     form = ""
     low_all = (raw or "").strip().lower().replace("_", " ")
@@ -1052,7 +850,9 @@ def parse_wyckoff_raw(raw: str) -> list[dict]:
 
 
 def lookup_wyckoff(
-    spacegroup_ita: int, wyckoff_entries: list[dict]
+    spacegroup_ita: int,
+    wyckoff_entries: list[dict],
+    reported_site_symmetries: list[str] | None = None,
 ) -> tuple[list, list, list, str]:
     """
     Look up Wyckoff positions in spglib for the given space group.
@@ -1064,32 +864,16 @@ def lookup_wyckoff(
     if not (1 <= spacegroup_ita <= 230):
         return labels, mults, syms, "invalid_spacegroup"
 
+    if reported_site_symmetries is not None:
+        labels = [entry["multiplicity"] + entry["letter"] for entry in wyckoff_entries]
+        mults = [entry["multiplicity"] for entry in wyckoff_entries]
+        return labels, mults, reported_site_symmetries, "ok"
+
     try:
-        import spglib
-
-        wyk_data = (
-            spglib.get_spacegroup_type_from_symmetry(spacegroup_ita, np_type="int")
-            if False
-            else None
-        )  # placeholder
-
-        # spglib doesn't expose Wyckoff tables directly via simple call;
-        # use pymatgen's SpacegroupAnalyzer tables instead
         from pymatgen.symmetry.groups import SpaceGroup
 
         sg = SpaceGroup.from_int_number(spacegroup_ita)
-        valid_wyk = (
-            {str(s.multiplicity) + s.letter: s for s in sg.symmetry_ops}
-            if False
-            else {}
-        )
-
-        # pymatgen SpaceGroup has wyckoff_sites
-        wyk_sites = (
-            {ws.letter: ws for ws in sg.wyckoff_sites}
-            if hasattr(sg, "wyckoff_sites")
-            else {}
-        )
+        wyk_sites = {ws.letter: ws for ws in getattr(sg, "wyckoff_sites", [])}
 
         status = "ok"
         for entry in wyckoff_entries:
@@ -1119,259 +903,6 @@ def lookup_wyckoff(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# GEOMETRY-BASED DERIVATION (requires pymatgen + site data)
-# ══════════════════════════════════════════════════════════════════════════════
-
-PRIMARY_SYMPREC = 0.1
-QC_SYMPREC = 0.01
-ANGLE_TOLERANCE = 5.0
-
-
-def _imports():
-    try:
-        import numpy as np
-        from pymatgen.core import Composition, Lattice, Structure
-        from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
-
-        return np, Composition, Lattice, Structure, SpacegroupAnalyzer
-    except ImportError as exc:
-        raise RuntimeError("pymatgen/numpy not available") from exc
-
-
-def derive_from_geometry(row_data: dict) -> dict:
-    """
-    Build a pymatgen Structure from lattice + sites in row_data, then derive
-    symmetry, composition, Wyckoff positions.
-    row_data keys: lattice_matrix, pbc, site_species (list of species dicts),
-                   site_frac_coords (list of [x,y,z]).
-    Returns dict of derived_ values.
-    """
-    out: dict[str, str] = {
-        "derived_formula": "",
-        "derived_reduced_formula": "",
-        "derived_formula_hill": "",
-        "derived_formula_anonymous": "",
-        "derived_composition_json": "",
-        "derived_chemical_system": "",
-        "derived_nelements": "",
-        "derived_nsites": "",
-        "derived_spacegroup_ita": "",
-        "derived_spacegroup_hm_short": "",
-        "derived_spacegroup_hm_full": "",
-        "derived_spacegroup_hall": "",
-        "derived_spacegroup_schoenflies": "",
-        "derived_crystal_system": "",
-        "derived_point_group_schoenflies": "",
-        "derived_point_group_hm": "",
-        "derived_bravais_lattice": "",
-        "derived_wyckoff_labels": "",
-        "derived_wyckoff_multiplicities": "",
-        "derived_wyckoff_site_symmetries": "",
-        "derived_primitive_spacegroup_ita": "",
-        "derived_primitive_hm_short": "",
-        "derived_conventional_spacegroup_ita": "",
-        "derived_conventional_hm_short": "",
-        "qc_spacegroup_ita_0p01": "",
-        "qc_hm_short_0p01": "",
-        "derived_symmetry_stable": "",
-        "derived_lattice_a": "",
-        "derived_lattice_b": "",
-        "derived_lattice_c": "",
-        "derived_lattice_alpha": "",
-        "derived_lattice_beta": "",
-        "derived_lattice_gamma": "",
-        "derived_lattice_volume": "",
-        "derived_status": "not_attempted",
-        "derived_error": "",
-    }
-
-    matrix = row_data.get("lattice_matrix")
-    species = row_data.get("site_species")
-    frac_coords = row_data.get("site_frac_coords")
-
-    if not (matrix and species and frac_coords):
-        out["derived_status"] = "skipped_missing_geometry"
-        return out
-
-    try:
-        np, Composition, Lattice, Structure, SpacegroupAnalyzer = _imports()
-
-        lattice = Lattice(matrix)
-        pbc = row_data.get("pbc", [True, True, True])
-        structure = Structure(
-            lattice,
-            species,
-            frac_coords,
-            coords_are_cartesian=False,
-            to_unit_cell=False,
-            validate_proximity=False,
-        )
-
-        # Composition
-        comp = structure.composition
-        red = comp.reduced_composition
-        out["derived_formula"] = comp.formula.replace(" ", "")
-        out["derived_reduced_formula"] = comp.reduced_formula
-        out["derived_formula_hill"] = comp.hill_formula.replace(" ", "")
-        out["derived_formula_anonymous"] = comp.anonymized_formula
-        out["derived_composition_json"] = compact_json(
-            {el.symbol: float(v) for el, v in comp.items()}
-        )
-        try:
-            out["derived_chemical_system"] = comp.chemical_system
-        except Exception:
-            out["derived_chemical_system"] = "-".join(
-                sorted(el.symbol for el in comp.elements)
-            )
-        out["derived_nelements"] = str(len(comp.elements))
-        out["derived_nsites"] = str(len(structure))
-
-        # Lattice params
-        lat = structure.lattice
-        out["derived_lattice_a"] = str(round(lat.a, 8))
-        out["derived_lattice_b"] = str(round(lat.b, 8))
-        out["derived_lattice_c"] = str(round(lat.c, 8))
-        out["derived_lattice_alpha"] = str(round(lat.alpha, 6))
-        out["derived_lattice_beta"] = str(round(lat.beta, 6))
-        out["derived_lattice_gamma"] = str(round(lat.gamma, 6))
-        out["derived_lattice_volume"] = str(round(lat.volume, 6))
-
-        # Primary symmetry (0.1 Å)
-        sga = SpacegroupAnalyzer(
-            structure, symprec=PRIMARY_SYMPREC, angle_tolerance=ANGLE_TOLERANCE
-        )
-        sd = sga.get_symmetry_dataset()
-        if sd is not None:
-            ita = int(sd.number if hasattr(sd, "number") else sd["number"])
-            out["derived_spacegroup_ita"] = str(ita)
-            ref = _SG_REF.get(ita, {})
-            out["derived_spacegroup_hm_short"] = ref.get("hm_short", "")
-            out["derived_spacegroup_hm_full"] = ref.get("hm_full", "")
-            out["derived_spacegroup_hall"] = ref.get("hall_symbol", "")
-            out["derived_spacegroup_schoenflies"] = ref.get("schoenflies", "")
-            out["derived_crystal_system"] = ref.get("crystal_system", "")
-            out["derived_point_group_schoenflies"] = txt(sga.get_point_group_symbol())
-            pg_s = out["derived_point_group_schoenflies"].lower().replace(" ", "")
-            pg_s = re.sub(r"[\^_]\d+", "", pg_s)
-            hm_pg = POINT_GROUP_TABLE.get(pg_s, ("", ""))[1]
-            out["derived_point_group_hm"] = hm_pg
-
-            # Bravais from crystal system + centering
-            centering = ref.get("hm_short", " ")[0] if ref.get("hm_short") else ""
-            cs_abbr = {
-                "triclinic": "a",
-                "monoclinic": "m",
-                "orthorhombic": "o",
-                "tetragonal": "t",
-                "trigonal": "h",
-                "hexagonal": "h",
-                "cubic": "c",
-            }.get(out["derived_crystal_system"], "?")
-            out["derived_bravais_lattice"] = (
-                cs_abbr.upper() + centering if centering else ""
-            )
-
-        # QC symmetry (0.01 Å)
-        sga_qc = SpacegroupAnalyzer(
-            structure, symprec=QC_SYMPREC, angle_tolerance=ANGLE_TOLERANCE
-        )
-        sd_qc = sga_qc.get_symmetry_dataset()
-        if sd_qc is not None:
-            ita_qc = int(sd_qc.number if hasattr(sd_qc, "number") else sd_qc["number"])
-            out["qc_spacegroup_ita_0p01"] = str(ita_qc)
-            ref_qc = _SG_REF.get(ita_qc, {})
-            out["qc_hm_short_0p01"] = ref_qc.get("hm_short", "")
-            if out["derived_spacegroup_ita"]:
-                out["derived_symmetry_stable"] = str(ita == ita_qc)
-
-        # Wyckoff positions from primary symmetry
-        if sd is not None:
-            try:
-                wyk_letters = list(
-                    sd.wyckoffs if hasattr(sd, "wyckoffs") else sd.get("wyckoffs", [])
-                )
-                wyk_mults = []
-                wyk_syms = []
-                try:
-                    from pymatgen.symmetry.groups import SpaceGroup
-
-                    sg = SpaceGroup.from_int_number(ita)
-                    wyk_map = {}
-                    if hasattr(sg, "wyckoff_sites"):
-                        wyk_map = {ws.letter: ws for ws in sg.wyckoff_sites}
-                    for letter in wyk_letters:
-                        ws = wyk_map.get(letter)
-                        if ws:
-                            wyk_mults.append(str(ws.multiplicity))
-                            wyk_syms.append(
-                                str(ws.site_symmetry)
-                                if hasattr(ws, "site_symmetry")
-                                else ""
-                            )
-                        else:
-                            wyk_mults.append("")
-                            wyk_syms.append("")
-                except Exception:
-                    wyk_mults = [""] * len(wyk_letters)
-                    wyk_syms = [""] * len(wyk_letters)
-
-                out["derived_wyckoff_labels"] = " ".join(wyk_letters)
-                out["derived_wyckoff_multiplicities"] = " ".join(wyk_mults)
-                out["derived_wyckoff_site_symmetries"] = " ".join(wyk_syms)
-            except Exception as exc:
-                LOG.debug("Wyckoff derivation failed: %s", exc)
-
-        # Primitive / conventional standard cells
-        all_periodic = all(bool(x) for x in pbc)
-        if all_periodic and sd is not None:
-            try:
-                prim = sga.get_primitive_standard_structure(
-                    international_monoclinic=True, keep_site_properties=False
-                )
-                sga_p = SpacegroupAnalyzer(
-                    prim, symprec=PRIMARY_SYMPREC, angle_tolerance=ANGLE_TOLERANCE
-                )
-                sd_p = sga_p.get_symmetry_dataset()
-                if sd_p is not None:
-                    ita_p = int(
-                        sd_p.number if hasattr(sd_p, "number") else sd_p["number"]
-                    )
-                    out["derived_primitive_spacegroup_ita"] = str(ita_p)
-                    out["derived_primitive_hm_short"] = _SG_REF.get(ita_p, {}).get(
-                        "hm_short", ""
-                    )
-            except Exception as exc:
-                LOG.debug("Primitive cell failed: %s", exc)
-
-            try:
-                conv = sga.get_conventional_standard_structure(
-                    international_monoclinic=True, keep_site_properties=False
-                )
-                sga_c = SpacegroupAnalyzer(
-                    conv, symprec=PRIMARY_SYMPREC, angle_tolerance=ANGLE_TOLERANCE
-                )
-                sd_c = sga_c.get_symmetry_dataset()
-                if sd_c is not None:
-                    ita_c = int(
-                        sd_c.number if hasattr(sd_c, "number") else sd_c["number"]
-                    )
-                    out["derived_conventional_spacegroup_ita"] = str(ita_c)
-                    out["derived_conventional_hm_short"] = _SG_REF.get(ita_c, {}).get(
-                        "hm_short", ""
-                    )
-            except Exception as exc:
-                LOG.debug("Conventional cell failed: %s", exc)
-
-        out["derived_status"] = "ok"
-
-    except Exception as exc:
-        out["derived_status"] = "failed"
-        out["derived_error"] = f"{type(exc).__name__}: {exc}"
-
-    return out
-
-
-# ══════════════════════════════════════════════════════════════════════════════
 # SITE DATA LOADER (optional phase-1 style sites file)
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -1392,6 +923,17 @@ def load_sites_index(sites_path: Path | None) -> dict[str, list[dict]]:
     return index
 
 
+def parse_lattice_parameters(row: dict, mapping: dict[str, str]) -> list[float] | None:
+    """Return six positive parameters, or None for missing or invalid values."""
+    parameters: list[float] = []
+    for name in constants.LATTICE_PARAMETERS:
+        value = safe_float(get_field(row, mapping, f"lattice_{name}"))
+        if value is None or value <= 0:
+            return None
+        parameters.append(value)
+    return parameters
+
+
 def build_geometry_payload(
     row: dict, mapping: dict[str, str], sites_index: dict[str, list[dict]]
 ) -> dict:
@@ -1399,41 +941,33 @@ def build_geometry_payload(
     payload: dict[str, Any] = {}
 
     # Lattice matrix from raw_lattice_matrix field
-    raw_matrix = get_field(row, mapping, "lattice_matrix")
-    if raw_matrix:
-        try:
-            matrix = json.loads(raw_matrix)
-            if isinstance(matrix, list) and len(matrix) == 3:
-                payload["lattice_matrix"] = [[float(x) for x in r] for r in matrix]
-        except Exception:
-            pass
+    matrix = get_array_field(row, mapping, "lattice_matrix")
+    if matrix is not None:
+        if len(matrix) != 3 or any(
+            not isinstance(r, list) or len(r) != 3 for r in matrix
+        ):
+            raise ValueError("lattice_matrix must have shape 3 x 3")
+        payload["lattice_matrix"] = [[float(x) for x in r] for r in matrix]
 
     # Fallback: build matrix from a,b,c,alpha,beta,gamma
     if "lattice_matrix" not in payload:
         try:
             from pymatgen.core import Lattice
 
-            a = safe_float(get_field(row, mapping, "lattice_a"))
-            b = safe_float(get_field(row, mapping, "lattice_b"))
-            c = safe_float(get_field(row, mapping, "lattice_c"))
-            alpha = safe_float(get_field(row, mapping, "lattice_alpha"))
-            beta = safe_float(get_field(row, mapping, "lattice_beta"))
-            gamma = safe_float(get_field(row, mapping, "lattice_gamma"))
-            if all(x is not None and x > 0 for x in [a, b, c, alpha, beta, gamma]):
-                lat = Lattice.from_parameters(a, b, c, alpha, beta, gamma)
-                payload["lattice_matrix"] = lat.matrix.tolist()
+            parameters = parse_lattice_parameters(row, mapping)
+            if parameters is not None:
+                lattice = Lattice.from_parameters(*parameters)
+                payload["lattice_matrix"] = lattice.matrix.tolist()
+                payload["lattice_matrix_method"] = "six_lattice_parameters"
         except Exception:
             pass
 
     # PBC
-    raw_pbc = get_field(row, mapping, "pbc")
-    if raw_pbc:
-        try:
-            payload["pbc"] = json.loads(raw_pbc)
-        except Exception:
-            payload["pbc"] = [True, True, True]
-    else:
-        payload["pbc"] = [True, True, True]
+    pbc = get_array_field(row, mapping, "pbc")
+    if pbc is not None and (len(pbc) != 3 or any(type(x) is not bool for x in pbc)):
+        raise ValueError("pbc must contain three booleans")
+    payload["pbc"] = pbc if pbc is not None else [True, True, True]
+    payload["pbc_reported"] = pbc is not None
 
     # Sites from inline field or external sites file
     uid = txt(row.get(mapping.get("material_id", ""), ""))
@@ -1460,15 +994,109 @@ def build_geometry_payload(
 
     # Inline species
     if "site_species" not in payload:
-        raw_species = get_field(row, mapping, "site_species")
-        if raw_species:
-            try:
-                payload["site_species"] = json.loads(raw_species)
-                # Need frac coords too — skip if absent
-            except Exception:
-                pass
+        species = get_array_field(row, mapping, "site_species")
+        if species is None:
+            elements = get_array_field(row, mapping, "element_species")
+            counts = (
+                get_array_field(row, mapping, "composition")
+                if elements is not None
+                else None
+            )
+            if elements is not None and counts is not None:
+                if len(elements) != len(counts):
+                    raise ValueError(
+                        "Element species and composition counts must align"
+                    )
+                species = []
+                for element, raw_count in zip(elements, counts):
+                    count = safe_int(raw_count)
+                    if count is None or count <= 0:
+                        raise ValueError("Composition counts must be positive integers")
+                    species.extend([element] * count)
+        if species is not None:
+            payload["site_species"] = species
+
+    if "site_frac_coords" not in payload:
+        coords = get_array_field(row, mapping, "site_frac_coords")
+        if coords is not None:
+            if any(not isinstance(r, list) or len(r) != 3 for r in coords):
+                raise ValueError("Fractional coordinates must have shape N x 3")
+            payload["site_frac_coords"] = [[float(x) for x in r] for r in coords]
+
+    if "lattice_matrix" in payload:
+        from pymatgen.core import Lattice
+
+        matrix = payload["lattice_matrix"]
+        if (
+            not all(math.isfinite(x) for r in matrix for x in r)
+            or Lattice(matrix).volume <= 1e-8
+        ):
+            raise ValueError("Lattice matrix must be finite and nonsingular")
+    if "site_frac_coords" in payload:
+        coords = payload["site_frac_coords"]
+        if not coords or not all(math.isfinite(x) for r in coords for x in r):
+            raise ValueError("Fractional coordinates must be nonempty and finite")
+        if "site_species" in payload and len(payload["site_species"]) != len(coords):
+            raise ValueError(
+                "Site species and fractional coordinates have different lengths"
+            )
+        raw_nsites = get_field(row, mapping, "nsites")
+        if not is_null(raw_nsites) and safe_int(raw_nsites) != len(coords):
+            raise ValueError("Reported site count differs from the coordinate count")
 
     return payload
+
+
+def normalize_geometry(
+    row: dict,
+    mapping: dict[str, str],
+    sites_index: dict[str, list[dict]],
+    output: dict[str, Any],
+) -> dict:
+    """Add reported geometry values to output and return geometry for derivation."""
+    reported_geometry = get_array_field(row, mapping, "geometry")
+    if reported_geometry is not None and len(reported_geometry) != 6:
+        raise ValueError("Geometry must contain six lattice parameters")
+
+    for name in (*constants.LATTICE_PARAMETERS, "volume"):
+        raw = output[f"raw_lattice_{name}"]
+        value = safe_float(raw)
+        if not is_null(raw) and (
+            value is None
+            or value <= 0
+            or (name in ("alpha", "beta", "gamma") and value >= 180)
+        ):
+            raise ValueError(f"Invalid lattice {name}: {raw}")
+        output[f"normalized_lattice_{name}"] = value
+
+    raw_nsites = output["raw_nsites"]
+    nsites = safe_int(raw_nsites)
+    if not is_null(raw_nsites) and (nsites is None or nsites <= 0):
+        raise ValueError("Site count must be a positive integer")
+    output["normalized_nsites"] = nsites
+
+    geometry = build_geometry_payload(row, mapping, sites_index)
+    for name in ("site_frac_coords", "site_species"):
+        # Only inline reported arrays belong in normalized geometry.
+        if mapping.get(name) or (
+            name == "site_species" and mapping.get("element_species")
+        ):
+            output[f"normalized_{name}"] = geometry.get(name)
+    if mapping.get("lattice_matrix"):
+        output["normalized_lattice_matrix"] = (
+            geometry.get("lattice_matrix")
+            if get_field(row, mapping, "lattice_matrix")
+            else None
+        )
+    if geometry.get("pbc_reported"):
+        output["normalized_pbc"] = geometry["pbc"]
+
+    complete = all(
+        geometry.get(name)
+        for name in ("lattice_matrix", "site_species", "site_frac_coords")
+    )
+    output["normalized_geometry_status"] = "valid" if complete else "incomplete"
+    return geometry
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1505,7 +1133,7 @@ def normalize_row(
             }
         )
 
-    out: dict[str, Any] = {f: "" for f in CANONICAL_FIELDS}
+    out: dict[str, Any] = {f: "" for f in constants.CANONICAL_FIELDS}
     out["source_row_id"] = str(row_id)
     out["source_database"] = db_name
     out["source_material_id"] = mat_id
@@ -1516,6 +1144,7 @@ def normalize_row(
         "spacegroup",
         "crystal_system",
         "bravais_lattice",
+        "pearson_symbol",
         "point_group",
         "formula",
         "composition",
@@ -1534,17 +1163,55 @@ def normalize_row(
         "lattice_matrix",
         "nsites",
         "site_species",
+        "site_frac_coords",
     ]:
         out[f"raw_{canon_suffix}"] = get_field(row, mapping, canon_suffix)
 
+    # Standardize reported geometry without replacing it with computed values.
+    try:
+        geo = normalize_geometry(row, mapping, sites_index, out)
+    except (ValueError, TypeError, OverflowError) as exc:
+        geo = {}
+        out["normalized_geometry_status"] = "invalid"
+        issue("geometry", "GEOMETRY_INVALID", "", str(exc), "error")
+
     # ── DERIVED (GEOMETRY) ─────────────────────────────────────────────────────
-    derived: dict[str, str] = {}
+    derived: dict[str, Any] = {}
     if enable_geometry:
-        try:
-            geo = build_geometry_payload(row, mapping, sites_index)
-            derived = derive_from_geometry(geo)
-        except Exception as exc:
-            derived = {"derived_status": "failed", "derived_error": str(exc)}
+        derived = derive.derive_from_geometry(geo, _SG_REF)
+        if derived["derived_status"] == "failed":
+            issue(
+                "geometry",
+                "GEOMETRY_DERIVATION_FAILED",
+                "",
+                derived["derived_error"],
+                "error",
+            )
+        elif (
+            derived["derived_status"] == "skipped_missing_geometry"
+            and out["normalized_geometry_status"] != "invalid"
+        ):
+            issue(
+                "geometry",
+                "GEOMETRY_MISSING",
+                "",
+                "Lattice, site species or fractional coordinates are missing",
+                "info",
+            )
+        if derived.get("derived_dimensionality_error"):
+            issue(
+                "dimensionality",
+                "DIMENSIONALITY_DERIVATION_FAILED",
+                "",
+                derived["derived_dimensionality_error"],
+            )
+        if derived.get("derived_layer_group_error"):
+            issue(
+                "layer_group",
+                "LAYER_GROUP_DERIVATION_FAILED",
+                "",
+                derived["derived_layer_group_error"],
+            )
     else:
         derived["derived_status"] = "geometry_disabled"
 
@@ -1588,8 +1255,19 @@ def normalize_row(
 
     # ── NORMALIZED: BRAVAIS LATTICE ────────────────────────────────────────────
     raw_bv = out["raw_bravais_lattice"]
-    norm_bv = normalize_bravais(raw_bv)
+    raw_pearson = out["raw_pearson_symbol"]
+    norm_bv = normalize_bravais(raw_pearson) or normalize_bravais(raw_bv)
     out["normalized_bravais_lattice"] = norm_bv
+    pearson, pearson_count = normalize_pearson(raw_pearson)
+    out["normalized_pearson_symbol"] = pearson or None
+    out["normalized_pearson_atom_count"] = pearson_count
+    if not is_null(raw_pearson) and not pearson:
+        issue(
+            "pearson_symbol",
+            "PEARSON_PARSE_FAILED",
+            raw_pearson,
+            "Invalid Pearson family, centering or atom count",
+        )
     if not is_null(raw_bv) and not norm_bv:
         issue(
             "bravais_lattice",
@@ -1637,13 +1315,20 @@ def normalize_row(
     # Also try material_form field
     if not form:
         _, form = normalize_dimensionality(raw_form)
-    out["normalized_dimensionality"] = dim
+    out["normalized_dimensionality"] = dim if dim != "unknown" else None
+    if is_null(raw_dim):
+        dimensionality_status = "not_reported"
+    elif dim == "unknown":
+        dimensionality_status = "unrecognized"
+    else:
+        dimensionality_status = "ok"
+    out["normalized_dimensionality_status"] = dimensionality_status
     out["normalized_material_form"] = form
 
     # ── NORMALIZED: LAYER GROUP ────────────────────────────────────────────────
     raw_lg = out["raw_layer_group"]
     lg_ita, lg_status = normalize_layer_group(raw_lg)
-    out["normalized_layer_group_ita"] = lg_ita
+    out["normalized_layer_group_ita"] = lg_ita or None
     out["normalized_layer_group_status"] = lg_status
     if lg_status == "out_of_range":
         issue(
@@ -1675,7 +1360,26 @@ def normalize_row(
     )
 
     if parsed_wyk and wyk_ita:
-        wlabels, wmults, wsyms, wstatus = lookup_wyckoff(wyk_ita, parsed_wyk)
+        reported_syms = row.get(mapping.get("wyckoff_site_symmetries", ""))
+        reported_letters = row.get(mapping.get("wyckoff_letters", ""))
+        site_syms = None
+        if isinstance(reported_syms, list) and isinstance(reported_letters, list):
+            aligned = len(reported_syms) == len(reported_letters) and all(
+                isinstance(syms, list)
+                and isinstance(letters, list)
+                and len(syms) == len(letters)
+                for syms, letters in zip(reported_syms, reported_letters)
+            )
+            if aligned and sum(map(len, reported_syms)) == len(parsed_wyk):
+                site_syms = [txt(sym) for group in reported_syms for sym in group]
+            else:
+                issue(
+                    "wyckoff",
+                    "WYCKOFF_LENGTH_MISMATCH",
+                    raw_wyk,
+                    "Reported Wyckoff letters and site symmetries have different lengths",
+                )
+        wlabels, wmults, wsyms, wstatus = lookup_wyckoff(wyk_ita, parsed_wyk, site_syms)
         out["normalized_wyckoff_labels"] = " ".join(wlabels)
         out["normalized_wyckoff_multiplicities"] = " ".join(wmults)
         out["normalized_wyckoff_site_symmetries"] = " ".join(wsyms)
@@ -1714,14 +1418,25 @@ def normalize_row(
     d_formula = out.get("derived_reduced_formula", "")
     n_formula = out.get("normalized_formula_reduced", "")
     if d_formula and n_formula:
+        from pymatgen.core import Composition
+
         out["formula_consistency"] = (
-            "consistent" if d_formula == n_formula else "mismatch"
+            "consistent"
+            if Composition(d_formula).reduced_composition
+            == Composition(n_formula).reduced_composition
+            else "mismatch"
         )
+        if out["formula_consistency"] == "mismatch":
+            issue(
+                "formula",
+                "REPORTED_DERIVED_FORMULA_MISMATCH",
+                raw_formula,
+                "Reported formula and geometry have different reduced compositions",
+            )
     elif n_formula and not d_formula:
         out["formula_consistency"] = "reported_only"
     elif d_formula and not n_formula:
         out["formula_consistency"] = "derived_only"
-        out["normalized_formula_reduced"] = d_formula  # backfill
     else:
         out["formula_consistency"] = "not_available"
 
@@ -1765,6 +1480,38 @@ def normalize_row(
     out["symmetry_tolerance_sensitive"] = (
         "yes" if d_sym_stable == "False" else "no" if d_sym_stable == "True" else ""
     )
+    if out["symmetry_tolerance_sensitive"] == "yes":
+        issue(
+            "spacegroup",
+            "SYMMETRY_TOLERANCE_SENSITIVE",
+            raw_sg,
+            f"Derived space group differs between symprec={constants.PRIMARY_SYMPREC} and {constants.QC_SYMPREC} Angstrom",
+        )
+
+    volume = out.get("normalized_lattice_volume")
+    derived_volume = safe_float(out.get("derived_lattice_volume"))
+    if volume is not None and derived_volume is not None:
+        matches = math.isclose(volume, derived_volume, rel_tol=1e-4, abs_tol=1e-3)
+        out["lattice_volume_consistency"] = "consistent" if matches else "mismatch"
+        if not matches:
+            issue(
+                "lattice_volume",
+                "LATTICE_VOLUME_MISMATCH",
+                out["raw_lattice_volume"],
+                f"Reported volume={volume}, lattice-derived volume={derived_volume}",
+            )
+
+    cell_count = out.get("derived_pearson_atom_count")
+    if pearson_count is not None and cell_count:
+        matches = pearson_count == cell_count
+        out["pearson_atom_count_consistency"] = "consistent" if matches else "mismatch"
+        if not matches:
+            issue(
+                "pearson_symbol",
+                "PEARSON_ATOM_COUNT_MISMATCH",
+                raw_pearson,
+                f"Pearson count={pearson_count}, derived {out['derived_pearson_cell_setting']}-cell count={cell_count}",
+            )
 
     # Overall normalization status
     any_ok = any(
@@ -1788,7 +1535,7 @@ def _worker_init():
     """Called once per worker process to build reference tables."""
     _build_sg_reference()
     try:
-        _imports()  # warm up pymatgen import
+        derive._imports()  # warm up pymatgen import
     except Exception:
         pass
 
@@ -1803,7 +1550,7 @@ def normalize_batch(args_tuple) -> list[tuple[dict, list[dict]]]:
                 row, mapping, row_id, db_name, sites_index, enable_geometry
             )
         except Exception as exc:
-            out_row = {f: "" for f in CANONICAL_FIELDS}
+            out_row = {f: "" for f in constants.CANONICAL_FIELDS}
             out_row["source_row_id"] = str(row_id)
             out_row["source_database"] = db_name
             out_row["normalization_status"] = "crashed"
@@ -1846,11 +1593,11 @@ class OutputBundle:
         self.counts = Counter()
 
         fh, self.main = open_output_csv(
-            out_dir / "normalized_output.csv", CANONICAL_FIELDS
+            out_dir / "normalized_output.csv", constants.CANONICAL_FIELDS
         )
         self.handles.append(fh)
         fh, self.issues = open_output_csv(
-            out_dir / "normalization_issues.csv", ISSUE_FIELDS
+            out_dir / "normalization_issues.csv", constants.ISSUE_FIELDS
         )
         self.handles.append(fh)
 
@@ -2052,9 +1799,9 @@ def main(argv=None):
             "phase1_sites": str(args.phase1_sites) if args.phase1_sites else "",
             "output_dir": str(args.output_dir),
             "geometry_derivation_enabled": not args.no_geometry,
-            "primary_symprec_angstrom": PRIMARY_SYMPREC,
-            "qc_symprec_angstrom": QC_SYMPREC,
-            "angle_tolerance_degrees": ANGLE_TOLERANCE,
+            "primary_symprec_angstrom": constants.PRIMARY_SYMPREC,
+            "qc_symprec_angstrom": constants.QC_SYMPREC,
+            "angle_tolerance_degrees": constants.ANGLE_TOLERANCE,
             "workers": args.workers,
             "batch_size": args.batch_size,
             "processed_rows": processed,
