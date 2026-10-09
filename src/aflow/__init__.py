@@ -14,8 +14,8 @@ DATA_DIR = PROJECT_ROOT / "data"
 
 def main() -> None:
 
-    input_path: Path = DATA_DIR / "aflow_500.json"
-    output_path: Path = DATA_DIR / "aflow_500_normalized.json"
+    input_path: Path = DATA_DIR / "aflow_full_200.json"
+    output_path: Path = DATA_DIR / "aflow_full_200_normalized.json"
     config_path: Path = PROJECT_ROOT / "field_map.yaml"
 
     aflow(input_path, output_path, config_path)

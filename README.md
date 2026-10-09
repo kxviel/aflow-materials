@@ -22,6 +22,39 @@ curl -fL --retry 3 \
         'https://aflow.org/API/aflux/?help(properties)' \
         -o aflow_properties.txt
 
+## Current AFLOW JSON pipeline
+
+Run `.venv/bin/aflow` from the project directory. The default input is
+`data/aflow_full_200.json`; the run writes its intermediary and normalized JSON files.
+
+The intermediary preserves the entire original record. The merged output uses
+AFLOW's property names and includes `quality`, `provenance`, and `units` metadata.
+Reported values take precedence over computed replacements. Missing reported
+values may use derived values, with their origin recorded per field. The original
+value remains available in the intermediary, joined by AUID.
+
+Documented energy quantities remain in eV/atom or eV/cell; `Egap` and the separately
+reported `Egap_fit` remain in eV. Pressure, residual pressure, and Pulay stress are
+converted from AFLOW's kbar to GPa (multiply by 0.1). Density uses g/cm³.
+`pressure` refers to the unrelaxed cell; `pressure_residual` refers to the relaxed
+cell. Per-cell energies keep AFLOW's simulation-cell basis, not a derived standard cell.
+Numeric quantities must be finite; missing values become null. Stoichiometry is
+checked against reported species and integer composition counts, and must sum to one.
+Invalid quantities become null and produce an error issue.
+
+Total energy, formation enthalpy, fitted gaps, and other definitions stay separate.
+Matching units alone does not make calculations from different DFT setups comparable.
+Properties without a documented normalization rule are retained as reported,
+including the CCE fields absent from the downloaded property registry.
+
+Quality status is `processed`, `review_required`, or `invalid`; it never claims
+scientific certification. The normalizer produces `quality_status` for CSV and
+intermediary JSON; the merged JSON exposes it as `quality.status`.
+Existing symmetry/Pearson disagreements remain flagged.
+The symmetry tolerances remain 0.1 Å primary, 0.01 Å QC, and 5° angle tolerance.
+PBC assumptions, unavailable layer groups, and bonding-model warnings remain visible.
+Derivation parameters are exported; unresolved records, including Rh6, require review.
+
 # normalize_reported_values.py
 
 General-purpose materials science value normalization pipeline.

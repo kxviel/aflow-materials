@@ -55,7 +55,7 @@ import re
 import sys
 import time
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from pathlib import Path
 from typing import Any
@@ -1104,6 +1104,63 @@ def normalize_geometry(
 # ══════════════════════════════════════════════════════════════════════════════
 
 
+def normalize_aflow_properties(
+    row: dict, output: dict[str, Any], issue: Callable[..., None]
+) -> None:
+    """Normalize documented AFLOW quantities without deriving missing values."""
+    for field in constants.AFLOW_SCALAR_UNITS:
+        raw = row.get(field)
+        output[f"raw_{field}"] = txt(raw)
+        value = safe_float(raw)
+        if not is_null(raw) and (
+            value is None
+            or (field == "Egap" and value < 0)
+            or (field == "density" and value <= 0)
+        ):
+            issue(
+                field, "PROPERTY_INVALID", txt(raw), "Invalid reported quantity", "error"
+            )
+            value = None
+        if value is not None and field in ("pressure", "pressure_residual", "Pulay_stress"):
+            value *= 0.1  # AFLOW reports kbar; the exported unit is GPa.
+        output[f"normalized_{field}"] = value
+
+    output["normalized_stoichiometry"] = None
+    raw = row.get("stoichiometry")
+    output["raw_stoichiometry"] = txt(raw)
+    if is_null(raw):
+        return
+    try:
+        fractions = get_array_field(
+            row, {"stoichiometry": "stoichiometry"}, "stoichiometry"
+        )
+        species = get_array_field(row, {"species": "species"}, "species")
+        counts = get_array_field(row, {"composition": "composition"}, "composition")
+        if fractions is None or species is None or counts is None:
+            raise ValueError("Stoichiometry requires species and composition counts")
+        if len(fractions) != len(species) or len(fractions) != len(counts):
+            raise ValueError("Stoichiometry, species and composition must align")
+        values: list[float] = []
+        amounts: list[int] = []
+        for fraction, count in zip(fractions, counts):
+            value, amount = safe_float(fraction), safe_int(count)
+            if value is None or value < 0 or amount is None or amount <= 0:
+                raise ValueError("Invalid stoichiometry fraction or composition count")
+            values.append(value)
+            amounts.append(amount)
+        total = sum(amounts)
+        if not values or not math.isclose(sum(values), 1.0, abs_tol=1e-8):
+            raise ValueError("Stoichiometry fractions must sum to one")
+        if any(
+            not math.isclose(value, amount / total, abs_tol=1e-8)
+            for value, amount in zip(values, amounts)
+        ):
+            raise ValueError("Stoichiometry disagrees with reported composition")
+        output["normalized_stoichiometry"] = values
+    except (ValueError, TypeError, OverflowError) as exc:
+        issue("stoichiometry", "STOICHIOMETRY_INVALID", txt(raw), str(exc), "error")
+
+
 def normalize_row(
     row: dict,
     mapping: dict[str, str],
@@ -1166,6 +1223,9 @@ def normalize_row(
         "site_frac_coords",
     ]:
         out[f"raw_{canon_suffix}"] = get_field(row, mapping, canon_suffix)
+
+    if db_name == "aflow":
+        normalize_aflow_properties(row, out, issue)
 
     # Standardize reported geometry without replacing it with computed values.
     try:
@@ -1523,6 +1583,15 @@ def normalize_row(
     )
     out["normalization_status"] = "complete" if any_ok else "empty"
 
+    out["quality_status"] = "processed"
+    if issues or any(
+        out[field] in ("conflict", "mismatch", "yes")
+        for field in constants.CONSISTENCY_FIELDS
+    ):
+        out["quality_status"] = "review_required"
+    if any(issue["severity"] == "error" for issue in issues):
+        out["quality_status"] = "invalid"
+
     return out, issues
 
 
@@ -1554,6 +1623,7 @@ def normalize_batch(args_tuple) -> list[tuple[dict, list[dict]]]:
             out_row["source_row_id"] = str(row_id)
             out_row["source_database"] = db_name
             out_row["normalization_status"] = "crashed"
+            out_row["quality_status"] = "invalid"
             issues = [
                 {
                     "source_row_id": str(row_id),

@@ -5,6 +5,7 @@ from typing import Any
 from aflow import constants
 from aflow.normalize_reported_values import (
     _build_sg_reference,
+    is_null,
     load_config,
     normalize_row,
 )
@@ -109,16 +110,10 @@ def normalize_aflow(
                 },
                 "consistency": {
                     key: normalized[key]
-                    for key in (
-                        "formula_consistency",
-                        "spacegroup_reported_vs_derived",
-                        "crystal_system_reported_vs_derived",
-                        "symmetry_tolerance_sensitive",
-                        "lattice_volume_consistency",
-                        "pearson_atom_count_consistency",
-                    )
+                    for key in constants.CONSISTENCY_FIELDS
                     if normalized.get(key) != ""
                 },
+                "quality_status": normalized["quality_status"],
                 "issues": issues,
             }
         )
@@ -129,34 +124,46 @@ def normalize_aflow(
 def merge_aflow_record(
     record: dict[str, Any], mapping: dict[str, str]
 ) -> dict[str, Any]:
-    """Keep AFLOW's arrays and select normalized, derived, then raw values."""
+    """Preserve reported values and make computed values and quality traceable."""
     raw = record["raw"]
     normalized = record.get("normalized", {})
     derived = record.get("derived", {})
+    sources = {}
 
     def select_value(field: str, convert=None, raw_key: str | None = None):
-        for value in (
-            normalized.get(f"normalized_{field}"),
-            derived.get(f"derived_{field}"),
+        key = raw_key or mapping.get(field, field)
+        derived_key = (
+            "derived_reduced_formula"
+            if field == "formula_reduced"
+            else f"derived_{field}"
+        )
+        for origin, value in (
+            ("normalized", normalized.get(f"normalized_{field}")),
+            ("reported", raw.get(key)),
+            ("derived", derived.get(derived_key)),
         ):
             if value not in (None, "", "unknown"):
-                return convert(value) if convert else value
-        return raw.get(raw_key or mapping.get(field, field))
+                sources[key] = origin
+                return convert(value) if convert and origin != "reported" else value
+        sources[key] = "missing"
+        return None
 
     geometry = [
         select_value(f"lattice_{name}", float) for name in constants.LATTICE_PARAMETERS
     ]
     if None in geometry:
         geometry = raw.get(mapping["geometry"])
+        sources[mapping["geometry"]] = "reported" if geometry is not None else "missing"
+    else:
+        origins = {sources[f"lattice_{name}"] for name in constants.LATTICE_PARAMETERS}
+        sources[mapping["geometry"]] = origins.pop() if len(origins) == 1 else "mixed"
 
     merged = raw.copy()
     merged.update(
         {
             # Chemistry
-            mapping["formula"]: (
-                normalized.get("normalized_formula_reduced")
-                or derived.get("derived_reduced_formula")
-                or raw.get(mapping["formula"])
+            mapping["formula"]: select_value(
+                "formula_reduced", raw_key=mapping["formula"]
             ),
             "formula_hill": select_value("formula_hill"),
             "formula_anonymous": select_value("formula_anonymous"),
@@ -197,6 +204,61 @@ def merge_aflow_record(
             "layer_group": select_value("layer_group_ita", int, raw_key="layer_group"),
         }
     )
+
+    units = {
+        mapping["geometry"]: ["angstrom"] * 3 + ["degree"] * 3,
+        mapping["lattice_volume"]: "angstrom^3",
+        mapping["site_frac_coords"]: "dimensionless",
+        "lattice_matrix": "angstrom",
+    }
+    for field, unit in constants.AFLOW_SCALAR_UNITS.items():
+        key = f"normalized_{field}"
+        if key in normalized:
+            merged[field] = normalized[key]
+            units[field] = unit
+            if normalized[key] is not None:
+                sources[field] = "normalized"
+            elif is_null(raw.get(field)):
+                sources[field] = "missing"
+            else:
+                sources[field] = "invalid_reported"
+    if "normalized_stoichiometry" in normalized:
+        merged["stoichiometry"] = normalized["normalized_stoichiometry"]
+        if merged["stoichiometry"] is not None:
+            sources["stoichiometry"] = "normalized"
+        elif is_null(raw.get("stoichiometry")):
+            sources["stoichiometry"] = "missing"
+        else:
+            sources["stoichiometry"] = "invalid_reported"
+        units["stoichiometry"] = "dimensionless"
+
+    merged["quality"] = {
+        "status": record["quality_status"],
+        "checks": record.get("consistency", {}),
+        "issues": record.get("issues", []),
+        "geometry_status": normalized.get("normalized_geometry_status"),
+        "pbc_status": derived.get("derived_pbc_status"),
+        "layer_group_status": derived.get("derived_layer_group_status"),
+        "dimensionality_warnings": json.loads(
+            derived.get("derived_dimensionality_warnings", "[]")
+        ),
+    }
+    merged["provenance"] = {
+        "field_sources": {
+            field: origin for field, origin in sources.items() if field in merged
+        },
+        "retained_fields": "reported",
+        "geometry_stage": "relaxed",
+        "energy_cell_basis": "reported_simulation_cell",
+        "symprec_angstrom": derived.get("derived_symprec"),
+        "qc_symprec_angstrom": derived.get("derived_qc_symprec"),
+        "angle_tolerance_degrees": derived.get("derived_angle_tolerance"),
+        "dimensionality_method": derived.get("derived_dimensionality_method"),
+        "dimensionality_parameters": json.loads(
+            derived.get("derived_dimensionality_parameters", "{}")
+        ),
+    }
+    merged["units"] = units
     return merged
 
 
@@ -213,6 +275,8 @@ def main(
     intermediary_path = output_path.with_name(
         f"{output_path.stem.removesuffix('_normalized')}_intermediary{output_path.suffix}"
     )
+    for record in merged_results:
+        record["provenance"]["intermediary_file"] = intermediary_path.name
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 

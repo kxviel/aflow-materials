@@ -127,6 +127,15 @@ POINT_GROUP_TABLE: dict[str, tuple[str, str]] = {
 HM_TO_SCHOENFLIES: dict[str, str] = {v[1]: v[0] for v in POINT_GROUP_TABLE.values()}
 
 # ── Canonical output fields ────────────────────────────────────────────────────
+CONSISTENCY_FIELDS = (
+    "formula_consistency",
+    "spacegroup_reported_vs_derived",
+    "crystal_system_reported_vs_derived",
+    "symmetry_tolerance_sensitive",
+    "lattice_volume_consistency",
+    "pearson_atom_count_consistency",
+)
+
 CANONICAL_FIELDS = [
     # identity
     "source_row_id",
@@ -256,12 +265,8 @@ CANONICAL_FIELDS = [
     "normalized_wyckoff_site_symmetries",
     "normalized_wyckoff_status",
     # ── consistency flags ──
-    "formula_consistency",
-    "spacegroup_reported_vs_derived",
-    "crystal_system_reported_vs_derived",
-    "symmetry_tolerance_sensitive",
-    "lattice_volume_consistency",
-    "pearson_atom_count_consistency",
+    *CONSISTENCY_FIELDS,
+    "quality_status",
     "normalization_status",
     "normalization_policy_version",
 ]
@@ -278,6 +283,31 @@ ISSUE_FIELDS = [
 ]
 
 LATTICE_PARAMETERS = ("a", "b", "c", "alpha", "beta", "gamma")
+
+# AFLOW's documented energy units are already canonical. Pressure is kbar -> GPa.
+AFLOW_SCALAR_UNITS = {
+    "energy_atom": "eV/atom",
+    "energy_cell": "eV/cell",
+    "enthalpy_atom": "eV/atom",
+    "enthalpy_cell": "eV/cell",
+    "enthalpy_formation_atom": "eV/atom",
+    "enthalpy_formation_cell": "eV/cell",
+    "eentropy_atom": "eV/atom",
+    "eentropy_cell": "eV/cell",
+    "PV_atom": "eV/atom",
+    "PV_cell": "eV/cell",
+    "Egap": "eV",
+    "Egap_fit": "eV",
+    "density": "g/cm^3",
+    "pressure": "GPa",
+    "pressure_residual": "GPa",
+    "Pulay_stress": "GPa",
+}
+CANONICAL_FIELDS.extend(
+    f"{prefix}_{field}"
+    for field in (*AFLOW_SCALAR_UNITS, "stoichiometry")
+    for prefix in ("raw", "normalized")
+)
 
 PRIMARY_SYMPREC = 0.1
 QC_SYMPREC = 0.01
