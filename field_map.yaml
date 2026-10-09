@@ -273,14 +273,20 @@ databases:
     material_id: "auid"
     spacegroup: "spacegroup_relax"
     crystal_system: "crystal_system"
-    bravais_lattice: "Pearson_symbol_relax"
+    bravais_lattice: "Bravais_lattice_relax"
+    pearson_symbol: "Pearson_symbol_relax"
     point_group: "point_group_Hermann_Mauguin"
+    point_group_schoenflies: "point_group_Schoenflies"
     formula: "compound"
-    composition: null
+    composition: "composition"
+    element_species: "species"
     dimensionality: null
     material_form: null
     layer_group: null
     wyckoff: "wyckoff"
+    wyckoff_letters: "Wyckoff_letters"
+    wyckoff_site_symmetries: "Wyckoff_site_symmetries"
+    geometry: "geometry"
     lattice_a: "lattice_a"
     lattice_b: "lattice_b"
     lattice_c: "lattice_c"
@@ -292,6 +298,7 @@ databases:
     lattice_matrix: null
     nsites: "natoms"
     site_species: null
+    site_frac_coords: "positions_fractional"
 
   # ────────────────────────────────────────────────────────────────────────────
   # GENERIC / TEMPLATE
