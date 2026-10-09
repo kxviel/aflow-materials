@@ -5,9 +5,22 @@ Prepare AFLOW materials data for integration into our database.
 Review AFLOW’s structure and available properties, collect and normalize its records, validate data quality, and present database statistics and the processing workflow in a short slide deck.
 
 
+how much info
+what is aflo
+data structure theirs(Of the 175 production properties, 171 have a documented request syntax.)
+gpl3 licesnce
+how to download
+what is raw, what can be normalized, what can be derived
+how many are experimental or practical or computational (wet lab) or experimentally proven
+
+
 curl -fL --retry 3 \
-  'https://aflow.org/API/aflux/?auid,aurl,compound,species,composition,spacegroup_relax,crystal_system,Pearson_symbol_relax,Bravais_lattice_relax,point_group_Hermann_Mauguin,point_group_Schoenflies,Wyckoff_letters,Wyckoff_multiplicities,Wyckoff_site_symmetries,geometry,volume_cell,natoms,positions_fractional,paging(1,500)' \
-  -o aflow_500.json
+  "https://aflow.org/API/aflux/?$(cat data/aflux_query.txt)" \
+  -o data/aflow_data.json
+
+  curl -fL --retry 3 \
+        'https://aflow.org/API/aflux/?help(properties)' \
+        -o aflow_properties.txt
 
 # normalize_reported_values.py
 
