@@ -1,1 +1,1731 @@
-{"ael_applied_pressure":{"description":"Returns the applied pressure for the AEL calculations.","units":"GPa","status":"production","syntax":"$aurl/?ael_applied_pressure","__comment__":[""]},"ael_average_external_pressure":{"description":"Returns the average external pressure for the AEL calculations.","units":"GPa","status":"production","syntax":"$aurl/?ael_average_external_pressure","__comment__":[""]},"ael_bulk_modulus_reuss":{"description":"Returns the bulk modulus calculated, using the Reuss method, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_bulk_modulus_reuss","__comment__":[""]},"ael_bulk_modulus_voigt":{"description":"Returns the bulk modulus calculated, using the Voigt method, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_bulk_modulus_voigt","__comment__":[""]},"ael_bulk_modulus_vrh":{"description":"Returns the bulk modulus calculated, using the Voigt-Reuss-Hill average, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_bulk_modulus_vrh","__comment__":[""]},"ael_compliance_tensor":{"description":"Returns the compliance tensor calculated by AEL.","units":"GPa<sup>-1</sup>","status":"production","syntax":"$aurl/?ael_compliance_tensor","__comment__":[]},"ael_debye_temperature":{"description":"Returns the Debye temperature calculated by AEL.","units":"K","status":"production","syntax":"$aurl/?ael_debye_temperature","__comment__":[""]},"ael_elastic_anisotropy":{"description":"Returns the elastic anisotropy calculated by AEL.","units":null,"status":"production","syntax":"$aurl/?ael_elastic_anisotropy","__comment__":[""]},"ael_poisson_ratio":{"description":"Returns the isotropic Poisson ratio calculated by AEL.","units":null,"status":"production","syntax":"$aurl/?ael_poisson_ratio","__comment__":[""]},"ael_pughs_modulus_ratio":{"description":"Returns the Pugh's modulus ratio calculated by AEL.","units":"","status":"production","syntax":"$aurl/?ael_pughs_modulus_ratio","__comment__":[""]},"ael_shear_modulus_reuss":{"description":"Returns the shear modulus calculated, using the Reuss method, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_shear_modulus_reuss","__comment__":[""]},"ael_shear_modulus_voigt":{"description":"Returns the shear modulus calculated, using the Voigt method, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_shear_modulus_voigt","__comment__":[""]},"ael_shear_modulus_vrh":{"description":"Returns the shear modulus calculated, using the Voigt-Reuss-Hill average, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_shear_modulus_vrh","__comment__":[""]},"ael_speed_of_sound_average":{"description":"Returns the average speed of sound calculated by AEL","units":"m/s","status":"deprecated","syntax":"$aurl/?ael_speed_of_sound_average","__comment__":[""]},"ael_speed_of_sound_longitudinal":{"description":"Returns the longitudinal speed of sound calculated by AEL","units":"m/s","status":"deprecated","syntax":"$aurl/?ael_speed_of_sound_longitudinal","__comment__":[""]},"ael_speed_of_sound_transverse":{"description":"Returns the transverse speed of sound calculated by AEL","units":"m/s","status":"deprecated","syntax":"$aurl/?ael_speed_of_sound_transverse","__comment__":[""]},"ael_speed_sound_average":{"description":"Returns the average speed of sound calculated by AEL","units":"m/s","status":"production","syntax":"$aurl/?ael_speed_sound_average","__comment__":[""]},"ael_speed_sound_longitudinal":{"description":"Returns the longitudinal speed of sound calculated by AEL","units":"m/s","status":"production","syntax":"$aurl/?ael_speed_sound_longitudinal","__comment__":[""]},"ael_speed_sound_transverse":{"description":"Returns the transverse speed of sound calculated by AEL","units":"m/s","status":"production","syntax":"$aurl/?ael_speed_sound_transverse","__comment__":[""]},"ael_stiffness_tensor":{"description":"Returns the stiffness tensor calculated by AEL","units":"GPa","status":"production","syntax":"$aurl/?ael_stiffness_tensor","__comment__":[]},"ael_youngs_modulus_vrh":{"description":"Returns the Young modulus calculated, using the Voigt-Reuss-Hill average, by AEL.","units":"GPa","status":"production","syntax":"$aurl/?ael_youngs_modulus_vrh","__comment__":[""]},"aflow_prototype_label_orig":{"description":"Returns the AFLOW prototype label for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_label_orig","__comment__":[""]},"aflow_prototype_label_relax":{"description":"Returns the AFLOW prototype label for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_label_relax","__comment__":[""]},"aflow_prototype_parameters_relax":{"description":"Returns the AFLOW prototype parameter labels and values for the relaxed structure.","units":null,"status":"production","syntax":null,"__comment__":null},"aflow_prototype_parameters_orig":{"description":"Returns the AFLOW prototype parameter labels and values for the unrelaxed structure.","units":null,"status":"production","syntax":null,"__comment__":null},"aflow_prototype_params_list_relax":{"description":"Returns the AFLOW prototype parameter labels for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_params_list","__comment__":[""]},"aflow_prototype_params_list_orig":{"description":"Returns the AFLOW prototype parameter labels for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_params_list_orig","__comment__":[""]},"aflow_prototype_params_values_relax":{"description":"Returns the AFLOW prototype parameter values for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_params_values","__comment__":[""]},"aflow_prototype_params_values_orig":{"description":"Returns the AFLOW prototype parameter values for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?aflow_prototype_params_values_orig","__comment__":[""]},"aflow_version":{"description":"Returns the version number of AFLOW used to perform the calculation.","units":null,"status":"production","syntax":"$aurl/?aflow_version","__comment__":[""]},"aflowlib_date":{"description":"Returns the date when the AFLOW post-processor generated the entry in the library.","units":null,"status":"production","syntax":"$aurl/?aflowlib_date","__comment__":[""]},"aflowlib_entries":{"description":"Returns the AFLOWLIB entries that matched the search criterion.","units":null,"status":"development","syntax":"$aurl/?aflowlib_entries","__comment__":[""]},"aflowlib_entries_number":{"description":"Returns the number AFLOWLIB entries that matched the search criterion.","units":null,"status":"development","syntax":"$aurl/?aflowlib_entries_number","__comment__":[""]},"aflowlib_version":{"description":"Returns the version of the AFLOW post-processor which generated the entry in the library.","units":null,"status":"production","syntax":"$aurl/?aflowlib_version","__comment__":[""]},"agl_acoustic_debye":{"description":"Returns the acoustic Debye temperature calculated by AGL.","units":"K","status":"production","syntax":"$aurl/?agl_acoustic_debye","__comment__":[""]},"agl_bulk_modulus_isothermal_300K":{"description":"Returns the isothermal bulk modulus calculated by AGL at 300 K.","units":"GPa","status":"production","syntax":"$aurl/?agl_bulk_modulus_isothermal_300K","__comment__":[""]},"agl_bulk_modulus_static_300K":{"description":"Returns the static bulk modulus calculated by AGL at 300 K.","units":"GPa","status":"production","syntax":"$aurl/?agl_bulk_modulus_static_300K","__comment__":[""]},"agl_debye":{"description":"Returns the Debye temperature calculated by AGL.","units":"K","status":"production","syntax":"$aurl/?agl_debye","__comment__":[""]},"agl_gruneisen":{"description":"Returns the Gr&uuml;neisen parameter calculated by AGL.","units":null,"status":"production","syntax":"$aurl/?agl_gruneisen","__comment__":[""]},"agl_heat_capacity_Cp_300K":{"description":"Returns the heat capacity per cell, at constant pressure, calculated by AGL at 300 K.","units":"k<sub>B</sub>/cell","status":"production","syntax":"$aurl/?agl_heat_capacity_Cp_300K","__comment__":[""]},"agl_heat_capacity_Cv_300K":{"description":"Returns the heat capacity per cell, at constant volume, calculated by AGL at 300 K.","units":"k<sub>B</sub>/cell","status":"production","syntax":"$aurl/?agl_heat_capacity_Cv_300K","__comment__":[""]},"agl_poisson_ratio_source":{"description":"Returns the source of the Poisson ratio used for AGL calculations.","units":"","status":"production","syntax":"$aurl/?agl_poisson_ratio_source","__comment__":[""]},"agl_thermal_conductivity_300K":{"description":"Returns the thermal conductivity calculated by AGL at 300 K.","units":"W m<sup>-1</sup> K<sup>-1</sup>","status":"production","syntax":"$aurl/?agl_thermal_conductivity_300K","__comment__":[""]},"agl_thermal_expansion_300K":{"description":"Returns the thermal expansion coefficient calculated by AGL at 300 K.","units":"K<sup>-1</sup>","status":"production","syntax":"$aurl/?agl_thermal_expansion_300K","__comment__":[""]},"agl_vibrational_entropy_300K_atom":{"description":"Returns the vibrational entropy per atom calculated by AGL at 300 K.","units":"meV/(K atom)","status":"production","syntax":"$aurl/?agl_vibrational_entropy_300K_atom","__comment__":[""]},"agl_vibrational_entropy_300K_cell":{"description":"Returns the vibrational entropy per cell calculated by AGL at 300 K.","units":"meV/(K cell)","status":"production","syntax":"$aurl/?agl_vibrational_entropy_300K_cell","__comment__":[""]},"agl_vibrational_free_energy_300K_atom":{"description":"Returns the vibrational free energy per atom calculated by AGL at 300 K.","units":"meV/atom","status":"production","syntax":"$aurl/?agl_vibrational_free_energy_300K_atom","__comment__":[""]},"agl_vibrational_free_energy_300K_cell":{"description":"Returns the vibrational free energy per cell calculated by AGL at 300 K.","units":"meV/cell","status":"production","syntax":"$aurl/?agl_vibrational_free_energy_300K_cell","__comment__":[""]},"auid":{"description":"Returns the AFLOWLIB unique identifier (AUID) for the entry.","units":null,"status":"production","syntax":"$aurl/?auid","__comment__":[""]},"aurl":{"description":"Returns the AFLOWLIB uniform resource locator (AURL) for the entry.","units":null,"status":"production","syntax":"$aurl/?aurl","__comment__":[""]},"author":{"description":"Returns the name (not necessarily an individual) and affiliation associated with authorship of the data.","units":null,"status":"development","syntax":"$aurl/?author","__comment__":[""]},"bader_atomic_volumes":{"description":"Returns the volume of each atom calculated by the Atoms in Molecules (AIM) Bader analysis.","units":"&Aring;<sup>3</sup>","status":"production","syntax":"$aurl/?bader_atomic_volumes","__comment__":[""]},"bader_net_charges":{"description":"Returns the partial charge of each atom calculated by the Atoms in Molecules (AIM) Bader analysis.","units":"e<sup>-</sup>","status":"production","syntax":"$aurl/?bader_net_charges","__comment__":[""]},"Bravais_lattice_lattice_system":{"description":"Returns the Bravais lattice of the lattice system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_lattice_system","__comment__":[""]},"Bravais_lattice_lattice_system_orig":{"description":"Returns the Bravais lattice of the lattice system for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_lattice_system_orig","__comment__":[""]},"Bravais_lattice_lattice_type":{"description":"Returns the lattice centering type for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_lattice_type","__comment__":[""]},"Bravais_lattice_lattice_type_orig":{"description":"Returns the lattice centering type for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_lattice_type_orig","__comment__":[""]},"Bravais_lattice_lattice_variation_type":{"description":"Returns the Bravais lattice variation of the lattice system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_lattice_variation_type","__comment__":[""]},"Bravais_lattice_lattice_variation_type_orig":{"description":"Returns the Bravais lattice variation of the lattice system for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_variation_lattice_type_orig","__comment__":[""]},"Bravais_lattice_orig":{"description":"Returns the Bravais lattice of the crystal for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_orig","__comment__":[""]},"Bravais_lattice_relax":{"description":"Returns the Bravais lattice of the crystal for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_lattice_relax","__comment__":[""]},"Bravais_superlattice_lattice_system":{"description":"Returns the Bravais superlattice of the lattice system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_lattice_system","__comment__":[""]},"Bravais_superlattice_lattice_system_orig":{"description":"Returns the Bravais superlattice of the lattice system for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_lattice_system_orig","__comment__":[""]},"Bravais_superlattice_lattice_type":{"description":"Returns the Bravais superlattice centering type for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_lattice_type","__comment__":[""]},"Bravais_superlattice_lattice_type_orig":{"description":"Returns the Bravais superlattice centering type for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_lattice_type_orig","__comment__":[""]},"Bravais_superlattice_lattice_variation_type":{"description":"Returns the Bravais superlattice variation of the lattice system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_lattice_variation_type","__comment__":[""]},"Bravais_superlattice_lattice_variation_type_orig":{"description":"Returns the Bravais superlattice variation of the lattice system for the unrelaxed structure","units":null,"status":"production","syntax":"$aurl/?Bravais_superlattice_variation_lattice_type_orig","__comment__":[""]},"calculation_cores":{"description":"Returns the number of CPUs used by the calculation.","units":null,"status":"production","syntax":"$aurl/?calculation_cores","__comment__":[""]},"calculation_memory":{"description":"Returns the maximum RAM used by the calculation.","units":"MB","status":"production","syntax":"$aurl/?calculation_memory","__comment__":[""]},"calculation_time":{"description":"Returns the total time taken by the calculation.","units":"seconds","status":"production","syntax":"$aurl/?calculation_time","__comment__":[""]},"catalog":{"description":"Returns the database name for the calculation.","units":null,"status":"production","syntax":"$aurl/?catalog","__comment__":[""]},"code":{"description":"Returns the software name and version used to perform the calculation.","units":null,"status":"production","syntax":"$aurl/?code","__comment__":[""]},"composition":{"description":"Returns the number of atoms per type in the simulation cell.","units":null,"status":"production","syntax":"$aurl/?composition","__comment__":[""]},"compound":{"description":"Returns the chemical formula of the structure.","units":null,"status":"production","syntax":"$aurl/?compound","__comment__":[""]},"corresponding":{"description":"Returns the name (not necessarily an individual) and affiliation associated with the data origin concerning correspondence about data.","units":null,"status":"development","syntax":"$aurl/?corresponding","__comment__":[""]},"crystal_class":{"description":"Returns the crystal class for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_class","__comment__":[""]},"crystal_class_orig":{"description":"Returns the crystal class for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_class_orig","__comment__":[""]},"crystal_family":{"description":"Returns the crystal family for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_family","__comment__":[""]},"crystal_family_orig":{"description":"Returns the crystal family for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_family_orig","__comment__":[""]},"crystal_system":{"description":"Returns the crystal system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_system","__comment__":[""]},"crystal_system_orig":{"description":"Returns the crystal system for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?crystal_system_orig","__comment__":[""]},"data_api":{"description":"Returns the REST API version for the entry.","units":null,"status":"production","syntax":"$aurl/?data_api","__comment__":[""]},"data_language":{"description":"Gives the language of the data in AFLOWLIB.","units":null,"status":"development","syntax":"$aurl/?data_language","__comment__":[""]},"data_source":{"description":"Returns the data source for the entry.","units":null,"status":"production","syntax":"$aurl/?data_source","__comment__":[""]},"delta_electronic_energy_convergence":{"description":"Returns the change in total energy from the last step of the self-consistent field (SCF) iteration.","units":"eV","status":"production","syntax":"$aurl/?delta_electronic_energy_convergence","__comment__":[""]},"delta_electronic_energy_threshold":{"description":"Returns the threshold for the self-consistent field (SCF) convergence.","units":"eV","status":"production","syntax":"$aurl/?delta_electronic_energy_threshold","__comment__":[""]},"density":{"description":"Returns the mass density of the unit cell.","units":"g/cm<sup>3</sup>","status":"production","syntax":"$aurl/?density","__comment__":[""]},"dft_type":{"description":"Returns the level of theory used in the calculation, i.e., pseudopotential type, exchange-correlation functional used, and use of GW.","units":null,"status":"production","syntax":"$aurl/?dft_type","__comment__":[""]},"eentropy_atom":{"description":"Returns the electronic entropy per atom used to converge the calculation.","units":"eV/atom","status":"production","syntax":"$aurl/?eentropy_atom","__comment__":[""]},"eentropy_cell":{"description":"Returns the electronic entropy per cell used to converge the calculation.","units":"eV/cell","status":"production","syntax":"$aurl/?eentropy_cell","__comment__":[""]},"Egap":{"description":"Returns the electronic band gap.","units":"eV","status":"production","syntax":"$aurl/?Egap","__comment__":[""]},"Egap_fit":{"description":"Simple cross-validated correction (fit) of Egap.","units":"eV","status":"deprecated","syntax":"$aurl/?Egap_fit","__comment__":[""]},"Egap_type":{"description":"Returns the electronic band gap type.","units":null,"status":"production","syntax":"$aurl/?Egap_type","__comment__":[""]},"energy_atom":{"description":"Returns the total ab initio energy per atom.","units":"eV/atom","status":"production","syntax":"$aurl/?energy_atom","__comment__":[""]},"energy_cell":{"description":"Returns the total ab initio energy per cell.","units":"eV/cell","status":"production","syntax":"$aurl/?energy_cell","__comment__":[""]},"energy_cutoff":{"description":"Return the plane-wave energy cut-off used for the calculation.","units":"eV","status":"production","syntax":"$aurl/?energy_cutoff","__comment__":[""]},"enthalpy_atom":{"description":"Returns the enthalpy per atom.","units":"eV/atom","status":"production","syntax":"$aurl/?enthalpy_atom","__comment__":[""]},"enthalpy_cell":{"description":"Returns the enthalpy per cell.","units":"eV/cell","status":"production","syntax":"$aurl/?enthalpy_cell","__comment__":[""]},"enthalpy_formation_atom":{"description":"Returns the formation enthalpy per atom.","units":"eV/atom","status":"production","syntax":"$aurl/?enthalpy_formation_atom","__comment__":[""]},"enthalpy_formation_cell":{"description":"Returns the formation enthalpy per cell.","units":"eV/cell","status":"production","syntax":"$aurl/?enthalpy_formation_cell","__comment__":[""]},"entropic_temperature":{"description":"Returns the entropic temperature.","units":"K","status":"production","syntax":"$aurl/?entropic_temperature","__comment__":[""]},"files":{"description":"Returns the input and output files used in the simulation.","units":null,"status":"production","syntax":"$aurl/?files","__comment__":[""]},"forces":{"description":"Returns the forces on the atoms for the relaxed structure.","units":"eV/&Aring;","status":"production","syntax":"$aurl/?forces","__comment__":[""]},"geometry":{"description":"Returns the lattice parameters of the relaxed simulation cell.","units":"","status":"production","syntax":"$aurl/?geometry","__comment__":[""]},"geometry_orig":{"description":"Returns the lattice parameters of the unrelaxed simulation cell.","units":"","status":"production","syntax":"$aurl/?geometry_orig","__comment__":[""]},"icsd_number":{"description":"Returns the ICSD entry number","units":"","status":"development","syntax":"$aurl/?icsd_number","__comment__":[""]},"keywords":{"description":"This includes the list of keywords available in the entry, separated by commas.","units":null,"status":"deprecated","syntax":"$aurl/?keywords","__comment__":[""]},"kpoints":{"description":"Set of k-point meshes uniquely identifying the various steps of the calculations, e.g. relaxation, static and electronic band structure (specifying the k-space symmetry points of the structure).","units":null,"status":"deprecated","syntax":"$aurl/?kpoints","__comment__":[""]},"kpoints_bands_nkpts":{"description":"Returns the number of points, between the high-symmetry k-points, used for the band structure calculation.","units":"","status":"production","syntax":"$aurl/?kpoints_bands_nkpts","__comment__":[""]},"kpoints_bands_path":{"description":"Returns the high-symmetry k-point path used for the band structure calculation.","units":"","status":"production","syntax":"$aurl/?kpoints_bands_path","__comment__":[""]},"kpoints_relax":{"description":"Returns the k-point grid used for the structural relaxation calculation.","units":"","status":"production","syntax":"$aurl/?kpoints_relax","__comment__":[""]},"kpoints_static":{"description":"Returns the k-point grid used for the static calculation.","units":"","status":"production","syntax":"$aurl/?kpoints_static","__comment__":[""]},"lattice_system_orig":{"description":"Returns the lattice system for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?lattice_system_orig","__comment__":[""]},"lattice_system_relax":{"description":"Returns the lattice system for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?lattice_system_relax","__comment__":[""]},"lattice_variation_orig":{"description":"Returns the lattice variation for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?lattice_variation_orig","__comment__":[""]},"lattice_variation_relax":{"description":"Returns the lattice variation for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?lattice_variation_relax","__comment__":[""]},"ldau_j":{"description":"Returns the J parameters of the DFT+U calculation.","units":"eV","status":"production","syntax":"$aurl/?ldau_j","__comment__":[""]},"ldau_l":{"description":"Returns The orbitals of the DFT+U calculation.","units":null,"status":"production","syntax":"$aurl/?ldau_l","__comment__":[""]},"ldau_TLUJ":{"description":"This vector of numbers contains the parameters of the DFT+U calculations, based on a corrective functional inspired by the Hubbard model.","units":null,"status":"deprecated","syntax":"$aurl/?ldau_TLUJ","__comment__":[""]},"ldau_type":{"description":"Returns the type of DFT+U calculation performed.","units":null,"status":"production","syntax":"$aurl/?ldau_type","__comment__":[""]},"ldau_u":{"description":"Returns the U parameters of the DFT+U calculation.","units":"eV","status":"production","syntax":"$aurl/?ldau_u","__comment__":[""]},"loop":{"description":"Returns information about the type of post-processing that was performed.","units":null,"status":"production","syntax":"$aurl/?loop","__comment__":[""]},"natoms":{"description":"Returns the number of atoms in the simulation cell.","units":null,"status":"production","syntax":"$aurl/?natoms","__comment__":[""]},"nbondxx":{"description":"Returns the nearest neighbors distances for the relaxed structure.","units":"&Aring;","status":"production","syntax":"$aurl/?nbondxx","__comment__":[""]},"node_CPU_Cores":{"description":"Returns information about the number of CPUs on the node/cluster where the calculation was performed.","units":null,"status":"production","syntax":"$aurl/?node_CPU_Cores","__comment__":[""]},"node_CPU_MHz":{"description":"Returns information about the speed of CPUs on the node/cluster where the calculation was performed.","units":"MHz","status":"production","syntax":"$aurl/?node_CPU_MHz","__comment__":[""]},"node_CPU_Model":{"description":"Returns information about the model of CPUs on the node/cluster where the calculation was performed.","units":null,"status":"production","syntax":"$aurl/?node_CPU_Model","__comment__":[""]},"node_RAM_GB":{"description":"Returns information about the RAM on the node/cluster where the calculation was performed.","units":"Gb","status":"production","syntax":"$aurl/?node_RAM_GB","__comment__":[""]},"nspecies":{"description":"Returns the number of unique species in the structure.","units":null,"status":"production","syntax":"$aurl/?nspecies","__comment__":[""]},"Pearson_symbol_orig":{"description":"Returns the Pearson symbol for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Pearson_symbol_orig","__comment__":[""]},"Pearson_symbol_relax":{"description":"Returns the Pearson symbol for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Pearson_symbol_relax","__comment__":[""]},"Pearson_symbol_superlattice":{"description":"Returns the Pearson symbol of the superlattice for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?Pearson_symbol_superlattice","__comment__":[""]},"Pearson_symbol_superlattice_orig":{"description":"Returns the Pearson symbol of the superlattice for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?Pearson_symbol_superlattice_orig","__comment__":[""]},"point_group_Hermann_Mauguin":{"description":"Returns the point group, in Hermann-Mauguin notation, for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_Hermann_Mauguin","__comment__":[""]},"point_group_Hermann_Mauguin_orig":{"description":"Returns the point group, in Hermann-Mauguin notation, for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_Hermann_Mauguin_orig","__comment__":[""]},"point_group_orbifold":{"description":"Returns the point group orbifold for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_orbifold","__comment__":[""]},"point_group_orbifold_orig":{"description":"Returns the point group orbifold for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_orbifold_orig","__comment__":[""]},"point_group_order":{"description":"Returns the point group order for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_order","__comment__":[""]},"point_group_order_orig":{"description":"Returns the point group order for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_order_orig","__comment__":[""]},"point_group_Schoenflies":{"description":"Returns the point group, in Schoenflies notation, for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_Schoenflies","__comment__":[""]},"point_group_Schoenflies_orig":{"description":"Returns the point group, in Schoenflies notation, for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_Schoenflies_orig","__comment__":[""]},"point_group_structure":{"description":"Returns the point group structure for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_structure","__comment__":[""]},"point_group_structure_orig":{"description":"Returns the point group structure for the unrelaxed structure","units":null,"status":"production","syntax":"$aurl/?point_group_structure_orig","__comment__":[""]},"point_group_type":{"description":"Returns the point group type for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_type","__comment__":[""]},"point_group_type_orig":{"description":"Returns the point group type for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?point_group_type_orig","__comment__":[""]},"positions_cartesian":{"description":"Returns the Cartesian coordinates of the atoms for the relaxed structure.","units":"&Aring;","status":"production","syntax":"$aurl/?positions_cartesian","__comment__":[""]},"positions_fractional":{"description":"Returns the fractional coordinates of the atoms for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?positions_fractional","__comment__":[""]},"pressure":{"description":"Returns the hydrostatic pressure on the simulation cell for the unrelaxed structure.","units":"kbar","status":"production","syntax":"$aurl/?pressure","__comment__":[""]},"pressure_final":{"description":"Returns the hydrostatic pressure on the simulation cell for the relaxed structure.","units":"kbar","status":"development","syntax":"$aurl/?pressure_final","__comment__":[""]},"pressure_residual":{"description":"Returns the hydrostatic pressure, corrected by the Pulay stress, on the simulation cell for the relaxed structure.","units":"kbar","status":"production","syntax":"$aurl/?pressure_residual","__comment__":[""]},"Pullay_stress":{"description":"Returns the Pulay stress correction for the calculation.","units":"kbar","status":"deprecated","syntax":"$aurl/?Pullay_stress","__comment__":[""]},"Pulay_stress":{"description":"Returns the Pulay stress correcton for the calculation.","units":"kbar","status":"production","syntax":"$aurl/?pulay_stress","__comment__":[""]},"PV_atom":{"description":"Returns the pressure multiplied by volume per atom for the relaxed structure.","units":"eV/atom","status":"production","syntax":"$aurl/?PV_atom","__comment__":[""]},"PV_cell":{"description":"Returns the pressure multiplied by volume per atom for the relaxed structure.","units":"eV/cell","status":"production","syntax":"$aurl/?PV_cell","__comment__":[""]},"prototype":{"description":"Returns the AFLOW prototype for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?prototype","__comment__":[""]},"reciprocal_geometry":{"description":"Returns the reciprocal lattice parameters of the relaxed simulation cell.","units":null,"status":"production","syntax":"$aurl/?reciprocal_geometry","__comment__":[""]},"reciprocal_geometry_orig":{"description":"Returns the reciprocal lattice parameters of the unrelaxed simulation cell.","units":null,"status":"production","syntax":"$aurl/?reciprocal_geometry_orig","__comment__":[""]},"reciprocal_lattice_type":{"description":"Returns the reciprocal lattice centering type for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?reciprocal_lattice_type","__comment__":[""]},"reciprocal_lattice_type_orig":{"description":"Returns the reciprocal lattice centering type for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?reciprocal_lattice_type_orig","__comment__":[""]},"reciprocal_lattice_variation_type":{"description":"Returns the reciprocal lattice centering type variation for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?reciprocal_lattice_variation_type","__comment__":[""]},"reciprocal_lattice_variation_type_orig":{"description":"Returns the reciprocal lattice centering type variation for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?reciprocal_lattice_variation_type_orig","__comment__":[""]},"reciprocal_volume_cell":{"description":"Returns the volume of the reciprocal cell for the relaxed structure.","units":"&Aring;<sup>-3</sup>","status":"production","syntax":"$aurl/?reciprocal_volume_cell","__comment__":[""]},"reciprocal_volume_cell_orig":{"description":"Returns the volume of the reciprocal cell for the unrelaxed structure.","units":"&Aring;<sup>-3</sup>","status":"production","syntax":"$aurl/?reciprocal_volume_cell_orig","__comment__":[""]},"scintillation_attenuation_length":{"description":"Returns the scintillation attenuation length.","units":"cm","status":"production","syntax":"$aurl/?scintillation_attenuation_length","__comment__":[""]},"sg":{"description":"Returns the space groups for the structure, before the first relaxation step (unrelaxed), after the first relaxation step and after the last relaxation step (relaxed), using a loose tolerance.","units":null,"status":"production","syntax":"$aurl/?sg","__comment__":[""]},"sg2":{"description":"Returns the space groups for the structure, before the first relaxation step (unrelaxed), after the first relaxation step and after the last relaxation step (relaxed), using a tight (default) tolerance.","units":null,"status":"production","syntax":"$aurl/?sg2","__comment__":[""]},"spacegroup_orig":{"description":"Returns the space group for the unrelaxed structure.","units":null,"status":"production","syntax":"$aurl/?spacegroup_orig","__comment__":[""]},"spacegroup_relax":{"description":"Returns the space group number for the relaxed structure.","units":null,"status":"production","syntax":"$aurl/?spacegroup_relax","__comment__":[""]},"species":{"description":"Returns the unique species.","units":null,"status":"production","syntax":"$aurl/?species","__comment__":[""]},"species_pp":{"description":"Returns the pseudopotential of the species.","units":null,"status":"production","syntax":"$aurl/?species_pp","__comment__":[""]},"species_pp_ZVAL":{"description":"Returns the number of valence electrons of the species.","units":"e<sup>-</sup>","status":"production","syntax":"$aurl/?species_pp_ZVAL","__comment__":[""]},"species_pp_version":{"description":"Returns the pseudopotential version of the species.","units":null,"status":"production","syntax":"$aurl/?species_pp_version","__comment__":[""]},"spinD":{"description":"Returns the magnetic moment on each atom.","units":"&mu;<sub>B</sub>","status":"production","syntax":"$aurl/?spinD","__comment__":[""]},"spinD_magmom_orig":{"description":"Returns the magnetic moment on each atom of the unrelaxed structure.","units":"&mu;<sub>B</sub>","status":"development","syntax":"$aurl/?spinD","__comment__":[""]},"spinF":{"description":"Returns the magnetization of the simulation cell, at the Fermi energy.","units":"&mu;<sub>B</sub>/cell","status":"production","syntax":"$aurl/?spinF","__comment__":[""]},"spin_atom":{"description":"Returns the magnetization of the simulation cell per atom","units":"&mu;<sub>B</sub>/atom","status":"production","syntax":"$aurl/?spin_atom","__comment__":[""]},"spin_cell":{"description":"Returns the magnetization of the simulation cell.","units":"&mu;<sub>B</sub>/cell","status":"production","syntax":"$aurl/?spin_cell","__comment__":[""]},"sponsor":{"description":"Returns information about funding agencies and other sponsors for the entry.","units":null,"status":"development","syntax":"$aurl/?sponsor","__comment__":[""]},"stoich":{"description":"Similar to composition, returns a comma delimited stoichiometry description of the structure entry in the calculated cell.","units":null,"status":"deprecated","syntax":"$aurl/?stoichiometry","__comment__":[""]},"stoichiometry":{"description":"Returns the normalized composition of the structure.","units":null,"status":"production","syntax":"$aurl/?stoichiometry","__comment__":[""]},"stress_tensor":{"description":"Returns the stress tensor for the relaxed structure.","units":"kbar","status":"production","syntax":"$aurl/?stress_tensor","__comment__":[""]},"valence_cell_iupac":{"description":"Returns the sum of the valence electrons, based on IUPAC standards, of the atoms in the simulation cell.","units":null,"status":"production","syntax":"$aurl/?valence_cell_iupac","__comment__":[""]},"valence_cell_std":{"description":"Returns the sum of the valence electrons, based on the outermost shell(s), of the atoms in the simulation cell.","units":null,"status":"production","syntax":"$aurl/?valence_cell_std","__comment__":[""]},"volume_atom":{"description":"Returns the volume per atom of the simulation cell for the relaxed structure.","units":"&Aring;<sup>3</sup>/atom","status":"production","syntax":"$aurl/?volume_atom","__comment__":[""]},"volume_cell":{"description":"Returns the volume of the simulation cell for the relaxed structure.","units":"&Aring;<sup>3</sup>","status":"production","syntax":"$aurl/?volume_cell","__comment__":[""]},"Wyckoff_letters":{"description":"Returns the Wyckoff letters of each site for the relaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_letters","__comment__":[""]},"Wyckoff_letters_orig":{"description":"Returns the Wyckoff letters of each site for the unrelaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_letters_orig","__comment__":[""]},"Wyckoff_multiplicities":{"description":"Returns the Wyckoff multiplicity of each site for the relaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_multiplicities","__comment__":[""]},"Wyckoff_multiplicities_orig":{"description":"Returns the Wyckoff multiplicity of each site for the unrelaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_multiplicities_orig","__comment__":[""]},"Wyckoff_positions":{"description":"The Wyckoff positions of each site for the relaxed structure.","units":"","status":"production","syntax":null,"__comment__":[""]},"Wyckoff_positions_orig":{"description":"The Wyckoff positions of each site for the unrelaxed structure.","units":"","status":"production","syntax":null,"__comment__":[""]},"Wyckoff_site_symmetries":{"description":"Returns the Wyckoff symmetry of each site for the relaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_site_symmetries","__comment__":[""]},"Wyckoff_site_symmetries_orig":{"description":"Returns the Wyckoff symmetry of each site for the unrelaxed structure.","units":"","status":"production","syntax":"$aurl/?Wyckoff_site_symmetries_orig","__comment__":[""]}}
+{
+  "ael_applied_pressure": {
+    "description": "Returns the applied pressure for the AEL calculations.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_applied_pressure",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_average_external_pressure": {
+    "description": "Returns the average external pressure for the AEL calculations.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_average_external_pressure",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_bulk_modulus_reuss": {
+    "description": "Returns the bulk modulus calculated, using the Reuss method, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_bulk_modulus_reuss",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_bulk_modulus_voigt": {
+    "description": "Returns the bulk modulus calculated, using the Voigt method, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_bulk_modulus_voigt",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_bulk_modulus_vrh": {
+    "description": "Returns the bulk modulus calculated, using the Voigt-Reuss-Hill average, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_bulk_modulus_vrh",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_compliance_tensor": {
+    "description": "Returns the compliance tensor calculated by AEL.",
+    "units": "GPa<sup>-1</sup>",
+    "status": "production",
+    "syntax": "$aurl/?ael_compliance_tensor",
+    "__comment__": []
+  },
+  "ael_debye_temperature": {
+    "description": "Returns the Debye temperature calculated by AEL.",
+    "units": "K",
+    "status": "production",
+    "syntax": "$aurl/?ael_debye_temperature",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_elastic_anisotropy": {
+    "description": "Returns the elastic anisotropy calculated by AEL.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?ael_elastic_anisotropy",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_poisson_ratio": {
+    "description": "Returns the isotropic Poisson ratio calculated by AEL.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?ael_poisson_ratio",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_pughs_modulus_ratio": {
+    "description": "Returns the Pugh's modulus ratio calculated by AEL.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?ael_pughs_modulus_ratio",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_shear_modulus_reuss": {
+    "description": "Returns the shear modulus calculated, using the Reuss method, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_shear_modulus_reuss",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_shear_modulus_voigt": {
+    "description": "Returns the shear modulus calculated, using the Voigt method, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_shear_modulus_voigt",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_shear_modulus_vrh": {
+    "description": "Returns the shear modulus calculated, using the Voigt-Reuss-Hill average, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_shear_modulus_vrh",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_of_sound_average": {
+    "description": "Returns the average speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "deprecated",
+    "syntax": "$aurl/?ael_speed_of_sound_average",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_of_sound_longitudinal": {
+    "description": "Returns the longitudinal speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "deprecated",
+    "syntax": "$aurl/?ael_speed_of_sound_longitudinal",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_of_sound_transverse": {
+    "description": "Returns the transverse speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "deprecated",
+    "syntax": "$aurl/?ael_speed_of_sound_transverse",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_sound_average": {
+    "description": "Returns the average speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "production",
+    "syntax": "$aurl/?ael_speed_sound_average",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_sound_longitudinal": {
+    "description": "Returns the longitudinal speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "production",
+    "syntax": "$aurl/?ael_speed_sound_longitudinal",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_speed_sound_transverse": {
+    "description": "Returns the transverse speed of sound calculated by AEL",
+    "units": "m/s",
+    "status": "production",
+    "syntax": "$aurl/?ael_speed_sound_transverse",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ael_stiffness_tensor": {
+    "description": "Returns the stiffness tensor calculated by AEL",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_stiffness_tensor",
+    "__comment__": []
+  },
+  "ael_youngs_modulus_vrh": {
+    "description": "Returns the Young modulus calculated, using the Voigt-Reuss-Hill average, by AEL.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?ael_youngs_modulus_vrh",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_label_orig": {
+    "description": "Returns the AFLOW prototype label for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_label_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_label_relax": {
+    "description": "Returns the AFLOW prototype label for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_label_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_parameters_relax": {
+    "description": "Returns the AFLOW prototype parameter labels and values for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": null,
+    "__comment__": null
+  },
+  "aflow_prototype_parameters_orig": {
+    "description": "Returns the AFLOW prototype parameter labels and values for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": null,
+    "__comment__": null
+  },
+  "aflow_prototype_params_list_relax": {
+    "description": "Returns the AFLOW prototype parameter labels for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_params_list",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_params_list_orig": {
+    "description": "Returns the AFLOW prototype parameter labels for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_params_list_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_params_values_relax": {
+    "description": "Returns the AFLOW prototype parameter values for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_params_values",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_prototype_params_values_orig": {
+    "description": "Returns the AFLOW prototype parameter values for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_prototype_params_values_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflow_version": {
+    "description": "Returns the version number of AFLOW used to perform the calculation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflow_version",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflowlib_date": {
+    "description": "Returns the date when the AFLOW post-processor generated the entry in the library.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflowlib_date",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflowlib_entries": {
+    "description": "Returns the AFLOWLIB entries that matched the search criterion.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?aflowlib_entries",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflowlib_entries_number": {
+    "description": "Returns the number AFLOWLIB entries that matched the search criterion.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?aflowlib_entries_number",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aflowlib_version": {
+    "description": "Returns the version of the AFLOW post-processor which generated the entry in the library.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aflowlib_version",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_acoustic_debye": {
+    "description": "Returns the acoustic Debye temperature calculated by AGL.",
+    "units": "K",
+    "status": "production",
+    "syntax": "$aurl/?agl_acoustic_debye",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_bulk_modulus_isothermal_300K": {
+    "description": "Returns the isothermal bulk modulus calculated by AGL at 300 K.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?agl_bulk_modulus_isothermal_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_bulk_modulus_static_300K": {
+    "description": "Returns the static bulk modulus calculated by AGL at 300 K.",
+    "units": "GPa",
+    "status": "production",
+    "syntax": "$aurl/?agl_bulk_modulus_static_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_debye": {
+    "description": "Returns the Debye temperature calculated by AGL.",
+    "units": "K",
+    "status": "production",
+    "syntax": "$aurl/?agl_debye",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_gruneisen": {
+    "description": "Returns the Gr&uuml;neisen parameter calculated by AGL.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?agl_gruneisen",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_heat_capacity_Cp_300K": {
+    "description": "Returns the heat capacity per cell, at constant pressure, calculated by AGL at 300 K.",
+    "units": "k<sub>B</sub>/cell",
+    "status": "production",
+    "syntax": "$aurl/?agl_heat_capacity_Cp_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_heat_capacity_Cv_300K": {
+    "description": "Returns the heat capacity per cell, at constant volume, calculated by AGL at 300 K.",
+    "units": "k<sub>B</sub>/cell",
+    "status": "production",
+    "syntax": "$aurl/?agl_heat_capacity_Cv_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_poisson_ratio_source": {
+    "description": "Returns the source of the Poisson ratio used for AGL calculations.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?agl_poisson_ratio_source",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_thermal_conductivity_300K": {
+    "description": "Returns the thermal conductivity calculated by AGL at 300 K.",
+    "units": "W m<sup>-1</sup> K<sup>-1</sup>",
+    "status": "production",
+    "syntax": "$aurl/?agl_thermal_conductivity_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_thermal_expansion_300K": {
+    "description": "Returns the thermal expansion coefficient calculated by AGL at 300 K.",
+    "units": "K<sup>-1</sup>",
+    "status": "production",
+    "syntax": "$aurl/?agl_thermal_expansion_300K",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_vibrational_entropy_300K_atom": {
+    "description": "Returns the vibrational entropy per atom calculated by AGL at 300 K.",
+    "units": "meV/(K atom)",
+    "status": "production",
+    "syntax": "$aurl/?agl_vibrational_entropy_300K_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_vibrational_entropy_300K_cell": {
+    "description": "Returns the vibrational entropy per cell calculated by AGL at 300 K.",
+    "units": "meV/(K cell)",
+    "status": "production",
+    "syntax": "$aurl/?agl_vibrational_entropy_300K_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_vibrational_free_energy_300K_atom": {
+    "description": "Returns the vibrational free energy per atom calculated by AGL at 300 K.",
+    "units": "meV/atom",
+    "status": "production",
+    "syntax": "$aurl/?agl_vibrational_free_energy_300K_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "agl_vibrational_free_energy_300K_cell": {
+    "description": "Returns the vibrational free energy per cell calculated by AGL at 300 K.",
+    "units": "meV/cell",
+    "status": "production",
+    "syntax": "$aurl/?agl_vibrational_free_energy_300K_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "auid": {
+    "description": "Returns the AFLOWLIB unique identifier (AUID) for the entry.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?auid",
+    "__comment__": [
+      ""
+    ]
+  },
+  "aurl": {
+    "description": "Returns the AFLOWLIB uniform resource locator (AURL) for the entry.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?aurl",
+    "__comment__": [
+      ""
+    ]
+  },
+  "author": {
+    "description": "Returns the name (not necessarily an individual) and affiliation associated with authorship of the data.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?author",
+    "__comment__": [
+      ""
+    ]
+  },
+  "bader_atomic_volumes": {
+    "description": "Returns the volume of each atom calculated by the Atoms in Molecules (AIM) Bader analysis.",
+    "units": "&Aring;<sup>3</sup>",
+    "status": "production",
+    "syntax": "$aurl/?bader_atomic_volumes",
+    "__comment__": [
+      ""
+    ]
+  },
+  "bader_net_charges": {
+    "description": "Returns the partial charge of each atom calculated by the Atoms in Molecules (AIM) Bader analysis.",
+    "units": "e<sup>-</sup>",
+    "status": "production",
+    "syntax": "$aurl/?bader_net_charges",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_system": {
+    "description": "Returns the Bravais lattice of the lattice system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_lattice_system",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_system_orig": {
+    "description": "Returns the Bravais lattice of the lattice system for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_lattice_system_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_type": {
+    "description": "Returns the lattice centering type for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_lattice_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_type_orig": {
+    "description": "Returns the lattice centering type for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_lattice_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_variation_type": {
+    "description": "Returns the Bravais lattice variation of the lattice system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_lattice_variation_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_lattice_variation_type_orig": {
+    "description": "Returns the Bravais lattice variation of the lattice system for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_variation_lattice_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_orig": {
+    "description": "Returns the Bravais lattice of the crystal for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_lattice_relax": {
+    "description": "Returns the Bravais lattice of the crystal for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_lattice_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_system": {
+    "description": "Returns the Bravais superlattice of the lattice system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_lattice_system",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_system_orig": {
+    "description": "Returns the Bravais superlattice of the lattice system for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_lattice_system_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_type": {
+    "description": "Returns the Bravais superlattice centering type for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_lattice_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_type_orig": {
+    "description": "Returns the Bravais superlattice centering type for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_lattice_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_variation_type": {
+    "description": "Returns the Bravais superlattice variation of the lattice system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_lattice_variation_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Bravais_superlattice_lattice_variation_type_orig": {
+    "description": "Returns the Bravais superlattice variation of the lattice system for the unrelaxed structure",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Bravais_superlattice_variation_lattice_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "calculation_cores": {
+    "description": "Returns the number of CPUs used by the calculation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?calculation_cores",
+    "__comment__": [
+      ""
+    ]
+  },
+  "calculation_memory": {
+    "description": "Returns the maximum RAM used by the calculation.",
+    "units": "MB",
+    "status": "production",
+    "syntax": "$aurl/?calculation_memory",
+    "__comment__": [
+      ""
+    ]
+  },
+  "calculation_time": {
+    "description": "Returns the total time taken by the calculation.",
+    "units": "seconds",
+    "status": "production",
+    "syntax": "$aurl/?calculation_time",
+    "__comment__": [
+      ""
+    ]
+  },
+  "catalog": {
+    "description": "Returns the database name for the calculation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?catalog",
+    "__comment__": [
+      ""
+    ]
+  },
+  "code": {
+    "description": "Returns the software name and version used to perform the calculation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?code",
+    "__comment__": [
+      ""
+    ]
+  },
+  "composition": {
+    "description": "Returns the number of atoms per type in the simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?composition",
+    "__comment__": [
+      ""
+    ]
+  },
+  "compound": {
+    "description": "Returns the chemical formula of the structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?compound",
+    "__comment__": [
+      ""
+    ]
+  },
+  "corresponding": {
+    "description": "Returns the name (not necessarily an individual) and affiliation associated with the data origin concerning correspondence about data.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?corresponding",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_class": {
+    "description": "Returns the crystal class for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_class",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_class_orig": {
+    "description": "Returns the crystal class for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_class_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_family": {
+    "description": "Returns the crystal family for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_family",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_family_orig": {
+    "description": "Returns the crystal family for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_family_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_system": {
+    "description": "Returns the crystal system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_system",
+    "__comment__": [
+      ""
+    ]
+  },
+  "crystal_system_orig": {
+    "description": "Returns the crystal system for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?crystal_system_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "data_api": {
+    "description": "Returns the REST API version for the entry.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?data_api",
+    "__comment__": [
+      ""
+    ]
+  },
+  "data_language": {
+    "description": "Gives the language of the data in AFLOWLIB.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?data_language",
+    "__comment__": [
+      ""
+    ]
+  },
+  "data_source": {
+    "description": "Returns the data source for the entry.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?data_source",
+    "__comment__": [
+      ""
+    ]
+  },
+  "delta_electronic_energy_convergence": {
+    "description": "Returns the change in total energy from the last step of the self-consistent field (SCF) iteration.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?delta_electronic_energy_convergence",
+    "__comment__": [
+      ""
+    ]
+  },
+  "delta_electronic_energy_threshold": {
+    "description": "Returns the threshold for the self-consistent field (SCF) convergence.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?delta_electronic_energy_threshold",
+    "__comment__": [
+      ""
+    ]
+  },
+  "density": {
+    "description": "Returns the mass density of the unit cell.",
+    "units": "g/cm<sup>3</sup>",
+    "status": "production",
+    "syntax": "$aurl/?density",
+    "__comment__": [
+      ""
+    ]
+  },
+  "dft_type": {
+    "description": "Returns the level of theory used in the calculation, i.e., pseudopotential type, exchange-correlation functional used, and use of GW.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?dft_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "eentropy_atom": {
+    "description": "Returns the electronic entropy per atom used to converge the calculation.",
+    "units": "eV/atom",
+    "status": "production",
+    "syntax": "$aurl/?eentropy_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "eentropy_cell": {
+    "description": "Returns the electronic entropy per cell used to converge the calculation.",
+    "units": "eV/cell",
+    "status": "production",
+    "syntax": "$aurl/?eentropy_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Egap": {
+    "description": "Returns the electronic band gap.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?Egap",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Egap_fit": {
+    "description": "Simple cross-validated correction (fit) of Egap.",
+    "units": "eV",
+    "status": "deprecated",
+    "syntax": "$aurl/?Egap_fit",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Egap_type": {
+    "description": "Returns the electronic band gap type.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Egap_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "energy_atom": {
+    "description": "Returns the total ab initio energy per atom.",
+    "units": "eV/atom",
+    "status": "production",
+    "syntax": "$aurl/?energy_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "energy_cell": {
+    "description": "Returns the total ab initio energy per cell.",
+    "units": "eV/cell",
+    "status": "production",
+    "syntax": "$aurl/?energy_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "energy_cutoff": {
+    "description": "Return the plane-wave energy cut-off used for the calculation.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?energy_cutoff",
+    "__comment__": [
+      ""
+    ]
+  },
+  "enthalpy_atom": {
+    "description": "Returns the enthalpy per atom.",
+    "units": "eV/atom",
+    "status": "production",
+    "syntax": "$aurl/?enthalpy_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "enthalpy_cell": {
+    "description": "Returns the enthalpy per cell.",
+    "units": "eV/cell",
+    "status": "production",
+    "syntax": "$aurl/?enthalpy_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "enthalpy_formation_atom": {
+    "description": "Returns the formation enthalpy per atom.",
+    "units": "eV/atom",
+    "status": "production",
+    "syntax": "$aurl/?enthalpy_formation_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "enthalpy_formation_cell": {
+    "description": "Returns the formation enthalpy per cell.",
+    "units": "eV/cell",
+    "status": "production",
+    "syntax": "$aurl/?enthalpy_formation_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "entropic_temperature": {
+    "description": "Returns the entropic temperature.",
+    "units": "K",
+    "status": "production",
+    "syntax": "$aurl/?entropic_temperature",
+    "__comment__": [
+      ""
+    ]
+  },
+  "files": {
+    "description": "Returns the input and output files used in the simulation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?files",
+    "__comment__": [
+      ""
+    ]
+  },
+  "forces": {
+    "description": "Returns the forces on the atoms for the relaxed structure.",
+    "units": "eV/&Aring;",
+    "status": "production",
+    "syntax": "$aurl/?forces",
+    "__comment__": [
+      ""
+    ]
+  },
+  "geometry": {
+    "description": "Returns the lattice parameters of the relaxed simulation cell.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?geometry",
+    "__comment__": [
+      ""
+    ]
+  },
+  "geometry_orig": {
+    "description": "Returns the lattice parameters of the unrelaxed simulation cell.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?geometry_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "icsd_number": {
+    "description": "Returns the ICSD entry number",
+    "units": "",
+    "status": "development",
+    "syntax": "$aurl/?icsd_number",
+    "__comment__": [
+      ""
+    ]
+  },
+  "keywords": {
+    "description": "This includes the list of keywords available in the entry, separated by commas.",
+    "units": null,
+    "status": "deprecated",
+    "syntax": "$aurl/?keywords",
+    "__comment__": [
+      ""
+    ]
+  },
+  "kpoints": {
+    "description": "Set of k-point meshes uniquely identifying the various steps of the calculations, e.g. relaxation, static and electronic band structure (specifying the k-space symmetry points of the structure).",
+    "units": null,
+    "status": "deprecated",
+    "syntax": "$aurl/?kpoints",
+    "__comment__": [
+      ""
+    ]
+  },
+  "kpoints_bands_nkpts": {
+    "description": "Returns the number of points, between the high-symmetry k-points, used for the band structure calculation.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?kpoints_bands_nkpts",
+    "__comment__": [
+      ""
+    ]
+  },
+  "kpoints_bands_path": {
+    "description": "Returns the high-symmetry k-point path used for the band structure calculation.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?kpoints_bands_path",
+    "__comment__": [
+      ""
+    ]
+  },
+  "kpoints_relax": {
+    "description": "Returns the k-point grid used for the structural relaxation calculation.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?kpoints_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "kpoints_static": {
+    "description": "Returns the k-point grid used for the static calculation.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?kpoints_static",
+    "__comment__": [
+      ""
+    ]
+  },
+  "lattice_system_orig": {
+    "description": "Returns the lattice system for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?lattice_system_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "lattice_system_relax": {
+    "description": "Returns the lattice system for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?lattice_system_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "lattice_variation_orig": {
+    "description": "Returns the lattice variation for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?lattice_variation_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "lattice_variation_relax": {
+    "description": "Returns the lattice variation for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?lattice_variation_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ldau_j": {
+    "description": "Returns the J parameters of the DFT+U calculation.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?ldau_j",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ldau_l": {
+    "description": "Returns The orbitals of the DFT+U calculation.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?ldau_l",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ldau_TLUJ": {
+    "description": "This vector of numbers contains the parameters of the DFT+U calculations, based on a corrective functional inspired by the Hubbard model.",
+    "units": null,
+    "status": "deprecated",
+    "syntax": "$aurl/?ldau_TLUJ",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ldau_type": {
+    "description": "Returns the type of DFT+U calculation performed.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?ldau_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "ldau_u": {
+    "description": "Returns the U parameters of the DFT+U calculation.",
+    "units": "eV",
+    "status": "production",
+    "syntax": "$aurl/?ldau_u",
+    "__comment__": [
+      ""
+    ]
+  },
+  "loop": {
+    "description": "Returns information about the type of post-processing that was performed.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?loop",
+    "__comment__": [
+      ""
+    ]
+  },
+  "natoms": {
+    "description": "Returns the number of atoms in the simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?natoms",
+    "__comment__": [
+      ""
+    ]
+  },
+  "nbondxx": {
+    "description": "Returns the nearest neighbors distances for the relaxed structure.",
+    "units": "&Aring;",
+    "status": "production",
+    "syntax": "$aurl/?nbondxx",
+    "__comment__": [
+      ""
+    ]
+  },
+  "node_CPU_Cores": {
+    "description": "Returns information about the number of CPUs on the node/cluster where the calculation was performed.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?node_CPU_Cores",
+    "__comment__": [
+      ""
+    ]
+  },
+  "node_CPU_MHz": {
+    "description": "Returns information about the speed of CPUs on the node/cluster where the calculation was performed.",
+    "units": "MHz",
+    "status": "production",
+    "syntax": "$aurl/?node_CPU_MHz",
+    "__comment__": [
+      ""
+    ]
+  },
+  "node_CPU_Model": {
+    "description": "Returns information about the model of CPUs on the node/cluster where the calculation was performed.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?node_CPU_Model",
+    "__comment__": [
+      ""
+    ]
+  },
+  "node_RAM_GB": {
+    "description": "Returns information about the RAM on the node/cluster where the calculation was performed.",
+    "units": "Gb",
+    "status": "production",
+    "syntax": "$aurl/?node_RAM_GB",
+    "__comment__": [
+      ""
+    ]
+  },
+  "nspecies": {
+    "description": "Returns the number of unique species in the structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?nspecies",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pearson_symbol_orig": {
+    "description": "Returns the Pearson symbol for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Pearson_symbol_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pearson_symbol_relax": {
+    "description": "Returns the Pearson symbol for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Pearson_symbol_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pearson_symbol_superlattice": {
+    "description": "Returns the Pearson symbol of the superlattice for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Pearson_symbol_superlattice",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pearson_symbol_superlattice_orig": {
+    "description": "Returns the Pearson symbol of the superlattice for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?Pearson_symbol_superlattice_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_Hermann_Mauguin": {
+    "description": "Returns the point group, in Hermann-Mauguin notation, for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_Hermann_Mauguin",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_Hermann_Mauguin_orig": {
+    "description": "Returns the point group, in Hermann-Mauguin notation, for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_Hermann_Mauguin_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_orbifold": {
+    "description": "Returns the point group orbifold for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_orbifold",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_orbifold_orig": {
+    "description": "Returns the point group orbifold for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_orbifold_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_order": {
+    "description": "Returns the point group order for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_order",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_order_orig": {
+    "description": "Returns the point group order for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_order_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_Schoenflies": {
+    "description": "Returns the point group, in Schoenflies notation, for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_Schoenflies",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_Schoenflies_orig": {
+    "description": "Returns the point group, in Schoenflies notation, for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_Schoenflies_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_structure": {
+    "description": "Returns the point group structure for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_structure",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_structure_orig": {
+    "description": "Returns the point group structure for the unrelaxed structure",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_structure_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_type": {
+    "description": "Returns the point group type for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "point_group_type_orig": {
+    "description": "Returns the point group type for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?point_group_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "positions_cartesian": {
+    "description": "Returns the Cartesian coordinates of the atoms for the relaxed structure.",
+    "units": "&Aring;",
+    "status": "production",
+    "syntax": "$aurl/?positions_cartesian",
+    "__comment__": [
+      ""
+    ]
+  },
+  "positions_fractional": {
+    "description": "Returns the fractional coordinates of the atoms for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?positions_fractional",
+    "__comment__": [
+      ""
+    ]
+  },
+  "pressure": {
+    "description": "Returns the hydrostatic pressure on the simulation cell for the unrelaxed structure.",
+    "units": "kbar",
+    "status": "production",
+    "syntax": "$aurl/?pressure",
+    "__comment__": [
+      ""
+    ]
+  },
+  "pressure_final": {
+    "description": "Returns the hydrostatic pressure on the simulation cell for the relaxed structure.",
+    "units": "kbar",
+    "status": "development",
+    "syntax": "$aurl/?pressure_final",
+    "__comment__": [
+      ""
+    ]
+  },
+  "pressure_residual": {
+    "description": "Returns the hydrostatic pressure, corrected by the Pulay stress, on the simulation cell for the relaxed structure.",
+    "units": "kbar",
+    "status": "production",
+    "syntax": "$aurl/?pressure_residual",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pullay_stress": {
+    "description": "Returns the Pulay stress correction for the calculation.",
+    "units": "kbar",
+    "status": "deprecated",
+    "syntax": "$aurl/?Pullay_stress",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Pulay_stress": {
+    "description": "Returns the Pulay stress correcton for the calculation.",
+    "units": "kbar",
+    "status": "production",
+    "syntax": "$aurl/?pulay_stress",
+    "__comment__": [
+      ""
+    ]
+  },
+  "PV_atom": {
+    "description": "Returns the pressure multiplied by volume per atom for the relaxed structure.",
+    "units": "eV/atom",
+    "status": "production",
+    "syntax": "$aurl/?PV_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "PV_cell": {
+    "description": "Returns the pressure multiplied by volume per atom for the relaxed structure.",
+    "units": "eV/cell",
+    "status": "production",
+    "syntax": "$aurl/?PV_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "prototype": {
+    "description": "Returns the AFLOW prototype for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?prototype",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_geometry": {
+    "description": "Returns the reciprocal lattice parameters of the relaxed simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_geometry",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_geometry_orig": {
+    "description": "Returns the reciprocal lattice parameters of the unrelaxed simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_geometry_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_lattice_type": {
+    "description": "Returns the reciprocal lattice centering type for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_lattice_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_lattice_type_orig": {
+    "description": "Returns the reciprocal lattice centering type for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_lattice_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_lattice_variation_type": {
+    "description": "Returns the reciprocal lattice centering type variation for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_lattice_variation_type",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_lattice_variation_type_orig": {
+    "description": "Returns the reciprocal lattice centering type variation for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_lattice_variation_type_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_volume_cell": {
+    "description": "Returns the volume of the reciprocal cell for the relaxed structure.",
+    "units": "&Aring;<sup>-3</sup>",
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_volume_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "reciprocal_volume_cell_orig": {
+    "description": "Returns the volume of the reciprocal cell for the unrelaxed structure.",
+    "units": "&Aring;<sup>-3</sup>",
+    "status": "production",
+    "syntax": "$aurl/?reciprocal_volume_cell_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "scintillation_attenuation_length": {
+    "description": "Returns the scintillation attenuation length.",
+    "units": "cm",
+    "status": "production",
+    "syntax": "$aurl/?scintillation_attenuation_length",
+    "__comment__": [
+      ""
+    ]
+  },
+  "sg": {
+    "description": "Returns the space groups for the structure, before the first relaxation step (unrelaxed), after the first relaxation step and after the last relaxation step (relaxed), using a loose tolerance.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?sg",
+    "__comment__": [
+      ""
+    ]
+  },
+  "sg2": {
+    "description": "Returns the space groups for the structure, before the first relaxation step (unrelaxed), after the first relaxation step and after the last relaxation step (relaxed), using a tight (default) tolerance.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?sg2",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spacegroup_orig": {
+    "description": "Returns the space group for the unrelaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?spacegroup_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spacegroup_relax": {
+    "description": "Returns the space group number for the relaxed structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?spacegroup_relax",
+    "__comment__": [
+      ""
+    ]
+  },
+  "species": {
+    "description": "Returns the unique species.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?species",
+    "__comment__": [
+      ""
+    ]
+  },
+  "species_pp": {
+    "description": "Returns the pseudopotential of the species.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?species_pp",
+    "__comment__": [
+      ""
+    ]
+  },
+  "species_pp_ZVAL": {
+    "description": "Returns the number of valence electrons of the species.",
+    "units": "e<sup>-</sup>",
+    "status": "production",
+    "syntax": "$aurl/?species_pp_ZVAL",
+    "__comment__": [
+      ""
+    ]
+  },
+  "species_pp_version": {
+    "description": "Returns the pseudopotential version of the species.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?species_pp_version",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spinD": {
+    "description": "Returns the magnetic moment on each atom.",
+    "units": "&mu;<sub>B</sub>",
+    "status": "production",
+    "syntax": "$aurl/?spinD",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spinD_magmom_orig": {
+    "description": "Returns the magnetic moment on each atom of the unrelaxed structure.",
+    "units": "&mu;<sub>B</sub>",
+    "status": "development",
+    "syntax": "$aurl/?spinD",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spinF": {
+    "description": "Returns the magnetization of the simulation cell, at the Fermi energy.",
+    "units": "&mu;<sub>B</sub>/cell",
+    "status": "production",
+    "syntax": "$aurl/?spinF",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spin_atom": {
+    "description": "Returns the magnetization of the simulation cell per atom",
+    "units": "&mu;<sub>B</sub>/atom",
+    "status": "production",
+    "syntax": "$aurl/?spin_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "spin_cell": {
+    "description": "Returns the magnetization of the simulation cell.",
+    "units": "&mu;<sub>B</sub>/cell",
+    "status": "production",
+    "syntax": "$aurl/?spin_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "sponsor": {
+    "description": "Returns information about funding agencies and other sponsors for the entry.",
+    "units": null,
+    "status": "development",
+    "syntax": "$aurl/?sponsor",
+    "__comment__": [
+      ""
+    ]
+  },
+  "stoich": {
+    "description": "Similar to composition, returns a comma delimited stoichiometry description of the structure entry in the calculated cell.",
+    "units": null,
+    "status": "deprecated",
+    "syntax": "$aurl/?stoichiometry",
+    "__comment__": [
+      ""
+    ]
+  },
+  "stoichiometry": {
+    "description": "Returns the normalized composition of the structure.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?stoichiometry",
+    "__comment__": [
+      ""
+    ]
+  },
+  "stress_tensor": {
+    "description": "Returns the stress tensor for the relaxed structure.",
+    "units": "kbar",
+    "status": "production",
+    "syntax": "$aurl/?stress_tensor",
+    "__comment__": [
+      ""
+    ]
+  },
+  "valence_cell_iupac": {
+    "description": "Returns the sum of the valence electrons, based on IUPAC standards, of the atoms in the simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?valence_cell_iupac",
+    "__comment__": [
+      ""
+    ]
+  },
+  "valence_cell_std": {
+    "description": "Returns the sum of the valence electrons, based on the outermost shell(s), of the atoms in the simulation cell.",
+    "units": null,
+    "status": "production",
+    "syntax": "$aurl/?valence_cell_std",
+    "__comment__": [
+      ""
+    ]
+  },
+  "volume_atom": {
+    "description": "Returns the volume per atom of the simulation cell for the relaxed structure.",
+    "units": "&Aring;<sup>3</sup>/atom",
+    "status": "production",
+    "syntax": "$aurl/?volume_atom",
+    "__comment__": [
+      ""
+    ]
+  },
+  "volume_cell": {
+    "description": "Returns the volume of the simulation cell for the relaxed structure.",
+    "units": "&Aring;<sup>3</sup>",
+    "status": "production",
+    "syntax": "$aurl/?volume_cell",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_letters": {
+    "description": "Returns the Wyckoff letters of each site for the relaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_letters",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_letters_orig": {
+    "description": "Returns the Wyckoff letters of each site for the unrelaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_letters_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_multiplicities": {
+    "description": "Returns the Wyckoff multiplicity of each site for the relaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_multiplicities",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_multiplicities_orig": {
+    "description": "Returns the Wyckoff multiplicity of each site for the unrelaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_multiplicities_orig",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_positions": {
+    "description": "The Wyckoff positions of each site for the relaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": null,
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_positions_orig": {
+    "description": "The Wyckoff positions of each site for the unrelaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": null,
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_site_symmetries": {
+    "description": "Returns the Wyckoff symmetry of each site for the relaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_site_symmetries",
+    "__comment__": [
+      ""
+    ]
+  },
+  "Wyckoff_site_symmetries_orig": {
+    "description": "Returns the Wyckoff symmetry of each site for the unrelaxed structure.",
+    "units": "",
+    "status": "production",
+    "syntax": "$aurl/?Wyckoff_site_symmetries_orig",
+    "__comment__": [
+      ""
+    ]
+  }
+}
