@@ -22,6 +22,8 @@ curl -fL --retry 3 \
         'https://aflow.org/API/aflux/?help(properties)' \
         -o aflow_properties.txt
 
+url = "https://aflow.org/API/aflux/?auid,aurl,compound,paging(0)"
+
 ## Current AFLOW JSON pipeline
 
 Run `.venv/bin/aflow` from the project directory. The default input is
