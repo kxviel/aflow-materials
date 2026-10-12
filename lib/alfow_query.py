@@ -51,11 +51,11 @@ def fetch_material(entry):
 
 
 def download_files(full):
-    """Download everything in the record's `files` list. Returns the names that failed."""
+    """Download everything in the record's `files` list. Returns {name: error} for failures."""
     base = base_url(full)
     folder = FILES_DIR / full["auid"].split(":")[-1]
     folder.mkdir(parents=True, exist_ok=True)
-    failed = []
+    failed = {}
 
     for listed in full.get("files", []):
         name = Path(listed).name  # never write outside the record's folder
@@ -64,9 +64,9 @@ def download_files(full):
             continue
         try:
             download_file(base + quote(name), dest)
-        except OSError:
-            failed.append(name)
-            print(f"  FAIL {name}")
+        except OSError as e:  # includes HTTP errors such as 404
+            failed[name] = e
+            print(f"  FAIL {name}: {e}")
         time.sleep(DELAY)
     return failed
 
@@ -109,8 +109,8 @@ def download_all_files(results, failures):
     """Stage 2: files for every record. Files already on disk are skipped, so reruns resume."""
     for i, full in enumerate(results.values(), 1):
         print(f"files [{i}/{len(results)}] {full.get('compound', full['auid'])}")
-        for name in download_files(full):
-            failures[f"{full['auid']}/{name}"] = base_url(full) + name
+        for name, error in download_files(full).items():
+            failures[f"{full['auid']}/{name}"] = f"{error} ({base_url(full)}{name})"
 
 
 def main():

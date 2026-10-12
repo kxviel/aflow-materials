@@ -11,3 +11,4 @@ wheels/
 
 # Node.js dependencies
 node_modules/
+data/
