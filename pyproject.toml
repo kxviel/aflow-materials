@@ -1,7 +1,7 @@
 [project]
 name = "aflow"
 version = "0.1.0"
-description = "Add your description here"
+description = "Resumable AFLOW downloads and per-entry material normalization"
 readme = "README.md"
 authors = [{ name = "kxviel", email = "kevin.dgoveas@gmail.com" }]
 requires-python = ">=3.11.16"
@@ -12,9 +12,6 @@ dependencies = [
     "pyyaml>=6.0.3",
     "spglib>=2.7.0",
 ]
-
-[project.scripts]
-aflow = "aflow:main"
 
 [build-system]
 requires = ["uv_build>=0.12.23,<0.13.0"]

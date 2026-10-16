@@ -1,14 +1,4 @@
-# Python-generated files
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
-
-# Node.js dependencies
-node_modules/
+*.py[cod]
+.venv/
 data/
